@@ -17,17 +17,17 @@ describe("app", function() {
     expect(testApp.messages[0].date).not.to.equal(undefined)
   });
   it("message has id", function() {
-    expect(testApp.messages[0].id).to.equal(testApp.messages.length)
+    expect(testApp.messages[0].id).to.equal(0)
   });
-  // it("app reads (get)", function() {
-  //   expect(testApp.get(0).content).to.equal("hi")
-  // });
-  // it("app updates (update)", function() {
-  //   testApp.update(0, "hello world")
-  //   expect(testApp.messages[0].content).to.equal('hello world')
-  // });
-  // it("app deletes (delete)", function() {
-  //   testApp.delete(0)
-  //   expect(testApp.messages.length).to.equal(0)
-  // });
+  it("app reads (get)", function() {
+    expect(testApp.get(0).content).to.equal("hello world")
+  });
+  it("app updates (update)", function() {
+    testApp.update(0, "goodbye universe")
+    expect(testApp.messages[0].content).to.equal('goodbye universe')
+  });
+  it("app deletes (delete)", function() {
+    testApp.delete(0)
+    expect(testApp.messages.length).to.equal(0)
+  });
 })
