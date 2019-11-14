@@ -30,13 +30,18 @@ describe("app", function() {
     testApp.delete(0)
     expect(testApp.messages.length).to.equal(0)
   });
+
   it("reads from given filepath", function() {
+    var testFileWriteApp = new MessageApp("/\///json/\//testMessages.json")
+    expect(testFileWriteApp.messages.length).to.equal(0)
+    testFileWriteApp.post("Hi")
+    expect(testFileWriteApp.messages.length).to.equal(1)
+  });
+
+  it("writes to given filepath", function() {
     var testFileReadApp = new MessageApp("/\///json/\//testMessages.json")
     expect(testFileReadApp.messages.length).to.equal(1)
-  });
-  it.only("writes to given filepath", function() {
-    var testFileReadApp = new MessageApp("/\///json/\//testMessages.json")
-    testFileReadApp.post("Hi")
-    expect(testFileReadApp.writeToJson).toHaveBeenCalled()
-  });
+    testFileReadApp.delete(0)
+    expect(testFileReadApp.messages.length).to.equal(0)
+});
 })

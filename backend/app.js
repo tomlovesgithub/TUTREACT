@@ -14,27 +14,42 @@ class MessageApp {
       date: new Date(),
       id: this.messages.length
     })
+    this.writeToJson()
   }
+
   get(id) {
     return this.messages.filter(message => message.id == id )[0]
   }
-  update(id,update){
-    this.messages[id].content = update
+
+  getAll(){
     return this.messages
   }
+
+  update(id,update){
+    this.messages[id].content = update
+    this.writeToJson()
+    return this.messages
+  }
+
   delete(id) {
     this.messages = this.messages.filter(message => message.id != id)
+    this.writeToJson()
   }
+
   readFromJson(){
-    return JSON.parse(fs.readFileSync(__dirname+path.normalize(this.filepath), "utf8", (err, data) => {}))
+    return JSON.parse(fs.readFileSync(__dirname+path.normalize(this.filepath), "utf8", (err, data) => {
+      if (err) throw err;
+    })
+  )}
+
+writeToJson(){
+    if (this.filepath) {
+    const jsonItem = JSON.stringify(this.messages)
+    fs.writeFile(__dirname+path.normalize(this.filepath), jsonItem, (err) => {
+      if (err) throw err;
+    });
   }
-  writeToJson(){
-    console.log(this.messages);
-    // fs.writeFile('message.txt', this.messages, (err) => {
-    //   if (err) throw err;
-    //   console.log('The file has been saved!');
-    // });
-  }
+}
 }
 
 export default MessageApp
