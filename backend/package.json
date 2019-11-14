@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "mocha -r esm app.test.js --watch",
+    "test": "mocha -r esm app.test.js",
     "start": "node -r esm app.js"
   },
   "author": "",

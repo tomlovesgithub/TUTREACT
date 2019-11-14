@@ -1,6 +1,11 @@
+import fs from "fs"
+import path from 'path'
+
 class MessageApp {
-  constructor() {
-    this.messages = []
+  constructor(filepath) {
+    this.filepath = filepath
+    this.messages = filepath ? this.readFromJson() : []
+    // console.log(this.messages);
   }
 
   post(content) {
@@ -19,6 +24,16 @@ class MessageApp {
   }
   delete(id) {
     this.messages = this.messages.filter(message => message.id != id)
+  }
+  readFromJson(){
+    return JSON.parse(fs.readFileSync(__dirname+path.normalize(this.filepath), "utf8", (err, data) => {}))
+  }
+  writeToJson(){
+    console.log(this.messages);
+    // fs.writeFile('message.txt', this.messages, (err) => {
+    //   if (err) throw err;
+    //   console.log('The file has been saved!');
+    // });
   }
 }
 
