@@ -33,8 +33,21 @@ function deleteMessage(id){
   })
 }
 
+function updateMessage(id, content){
+  return new Promise((resolve, reject) => {
+    var result = messageApp.update(id, content)
+    if (result !== []) {
+      resolve(result)
+    } else {
+      reject(result)
+    }
+  })
+}
+
+
 module.exports = {
   getAll,
   post,
-  deleteMessage
+  deleteMessage,
+  updateMessage
 }

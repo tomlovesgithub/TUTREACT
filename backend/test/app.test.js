@@ -21,6 +21,7 @@ describe("message API endpoint tests", function(){
       done()
     })
   })
+
   it("gets all messages", function(done) {
     const res = request(MessageApp)
     .get("/")
@@ -33,6 +34,25 @@ describe("message API endpoint tests", function(){
       done()
     })
   })
+
+  it("updates a message", function(done) {
+    data = {
+      content: "Hello World"
+    }
+    const res = request(MessageApp)
+    .put('/update/0')
+    .send(data)
+    .set("Accept", "application/json")
+    res.expect(200)
+    .end(function(err, res) {
+      if (err) {
+        return done(err)
+      }
+      expect(res.body[0].content).to.equal("Hello World")
+      done()
+    })
+  })
+
   it("deletes a message", function(done) {
     data = {
       id: 0
