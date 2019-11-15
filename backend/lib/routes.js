@@ -1,17 +1,13 @@
 import {Router} from "express"
-import MessageApp from './controller'
-var messageApp = new MessageApp("/\///json/\//messages.json")
+const messageApp = require("./model.js")
 const router = Router()
 
 router.get('/', async (req, res) => {
-  return new Promise((resolve, reject) => {
-    var result = messageApp.getAll()
-    if (result !== []) {
-      res.json(result)
-    } else {
-      res.status(404)
-    }
-  })
+  await messageApp.getAll()
+  .then((messages) => res.json(messages))
+  .catch((err) => res.status(404).json({
+    error: err.message
+  }))
 })
 
 module.exports = router
