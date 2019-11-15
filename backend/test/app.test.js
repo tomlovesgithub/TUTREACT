@@ -48,6 +48,6 @@ describe("message API endpoint tests", function(){
         expect(res.body.length).to.equal(1)
         done()
       })
-    // })
+    })
   })
 })
