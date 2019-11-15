@@ -1,12 +1,38 @@
 import request from "supertest"
 import { expect } from "chai";
 const MessageApp = require("../app.js")
+let data;
 
 describe("message API endpoint tests", function(){
+  beforeEach(function(){
+    data = {
+      content: "hi world"
+    };
+  })
+  it("posts a message", function(done) {
+    const res = request(MessageApp)
+    .post("/message")
+    .send(data)
+    .set("Accept", "application/json")
+    res.expect(200)
+    .end(function(err, res) {
+        if (err) {
+          return done(err)
+        }
+        expect(res.body.length).to.equal(1)
+        done()
+    })
+  })
   it("gets all messages", function(done) {
     const res = request(MessageApp)
     .get("/")
-    res.expect([ { content: 'Hi', date: '2019-11-15T11:46:58.616Z', id: 0 } ])
-    res.expect(200, done)
+    res.expect(200)
+    .end(function(err, res) {
+        if (err) {
+          return done(err)
+        }
+        expect(res.body.length).to.equal(1)
+        done()
+    })
   })
 })

@@ -11,7 +11,18 @@ function getAll(){
     }
   })
 }
+function post(content){
+  return new Promise((resolve, reject) => {
+    var message = messageApp.post(content)
+    if (message !== []) {
+      resolve(message)
+    } else {
+      reject(message)
+    }
+  })
+}
 
 module.exports = {
-  getAll
+  getAll,
+  post
 }

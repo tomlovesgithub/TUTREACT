@@ -14,6 +14,7 @@ class MessageApp {
       id: this.messages.length
     })
     this.writeToJson()
+    return this.messages
   }
 
   get(id) {
