@@ -5,7 +5,6 @@ class MessageApp {
   constructor(filepath) {
     this.filepath = filepath
     this.messages = filepath ? this.readFromJson() : []
-    // console.log(this.messages);
   }
 
   post(content) {
