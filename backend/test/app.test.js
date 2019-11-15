@@ -32,22 +32,22 @@ describe("message API endpoint tests", function(){
       expect(res.body.length).to.equal(1)
       done()
     })
-    it("deletes a message", function(done) {
-      data = {
-        id: 0
-      };
-      const res = request(MessageApp)
-      .delete("/delete/0")
-      .send(data)
-      .set("Accept", "application/json")
-      res.expect(200)
-      .end(function(err, res) {
-        if (err) {
-          return done(err)
-        }
-        expect(res.body.length).to.equal(1)
-        done()
-      })
+  })
+  it("deletes a message", function(done) {
+    data = {
+      id: 0
+    };
+    const res = request(MessageApp)
+    .delete("/delete/0")
+    .send(data)
+    .set("Accept", "application/json")
+    res.expect(200)
+    .end(function(err, res) {
+      if (err) {
+        return done(err)
+      }
+      expect(res.body.length).to.equal(0)
+      done()
     })
   })
 })

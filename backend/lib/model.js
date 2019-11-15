@@ -22,7 +22,19 @@ function post(content){
   })
 }
 
+function deleteMessage(id){
+  return new Promise((resolve, reject) => {
+    var result = messageApp.delete(id)
+    if (result !== []) {
+      resolve(result)
+    } else {
+      reject(result)
+    }
+  })
+}
+
 module.exports = {
   getAll,
-  post
+  post,
+  deleteMessage
 }
