@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import MessageApp from './controller.js'
+import MessageApp from '../lib/controller.js'
 
 describe("app", function() {
   var testApp = new MessageApp
