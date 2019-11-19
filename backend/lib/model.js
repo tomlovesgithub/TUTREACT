@@ -14,7 +14,7 @@ function getAll(){
 function post(content){
   return new Promise((resolve, reject) => {
     var message = messageApp.post(content)
-    if (message !== []) {
+    if (message !== "You can't post an empty message") {
       resolve(message)
     } else {
       reject(message)

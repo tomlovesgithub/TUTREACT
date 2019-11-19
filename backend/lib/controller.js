@@ -8,13 +8,18 @@ class MessageApp {
   }
 
   post(content) {
-    this.messages.push({
+    if (content) {
       content: content,
-      date: new Date(),
-      id: this.messages.length
-    })
-    this.writeToJson()
-    return this.messages
+      this.messages.push({
+        date: new Date(),
+        id: this.messages.length
+      })
+      this.writeToJson()
+      return this.messages
+    }
+    else {
+      return "You can't post an empty message"
+    }
   }
 
   get(id) {
@@ -42,14 +47,14 @@ class MessageApp {
     })
   )}
 
-writeToJson(){
+  writeToJson(){
     if (this.filepath) {
-    const jsonItem = JSON.stringify(this.messages)
-    fs.writeFile(__dirname+path.normalize(this.filepath), jsonItem, (err) => {
-      if (err) throw err;
-    });
+      const jsonItem = JSON.stringify(this.messages)
+      fs.writeFile(__dirname+path.normalize(this.filepath), jsonItem, (err) => {
+        if (err) throw err;
+      });
+    }
   }
-}
 }
 
 export default MessageApp

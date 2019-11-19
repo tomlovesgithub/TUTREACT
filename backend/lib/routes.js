@@ -15,9 +15,11 @@ router.post('/message', async (req, res) => {
   .then((messages) => {
     res.json(messages)
   })
-  .catch((err) => res.status(404).json({
-    error: err.message
-  }))
+  .catch((err) => {
+    res.status(404).json({
+    error: err
+  })
+})
 })
 
   router.delete('/delete/:id', async (req, res) => {
@@ -25,9 +27,11 @@ router.post('/message', async (req, res) => {
     .then((messages) => {
       res.json(messages)
     })
-    .catch((err) => res.status(404).json({
+    .catch((err) => {
+      res.status(404).json({
       error: err.message
-    }))
+    })
+  })
   })
 
   router.put('/update/:id', async (req, res) => {
