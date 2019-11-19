@@ -43,5 +43,10 @@ describe("app", function() {
     expect(testFileReadApp.messages.length).to.equal(1)
     testFileReadApp.delete(0)
     expect(testFileReadApp.messages.length).to.equal(0)
-});
+  });
+  it("rejects empty messages", function() {
+    var testApp = new MessageApp()
+    testApp.post('')
+    expect(testApp.post('')).to.equal("You can't post an empty message")
+  })
 })

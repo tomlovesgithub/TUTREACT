@@ -9,15 +9,15 @@ class MessageApp {
 
   post(content) {
     if (content) {
-      content: content,
       this.messages.push({
+        content: content,
         date: new Date(),
         id: this.messages.length
       })
       this.writeToJson()
       return this.messages
     }
-    else {
+    else if (!content){
       return "You can't post an empty message"
     }
   }
