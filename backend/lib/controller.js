@@ -27,7 +27,12 @@ class MessageApp {
   }
 
   getAll(){
-    return this.messages
+    if (this.messages.length !== 0) {
+      return this.messages
+  }
+    else {
+      return "No messages in database"
+    }
   }
 
   update(id,update){

@@ -1,10 +1,10 @@
-var messageApp = new MessageApp("/\///json/\//messages.json")
 import MessageApp from './controller'
+var messageApp = new MessageApp("/\///json/\//messages.json")
 
 function getAll(){
   return new Promise((resolve, reject) => {
     var result = messageApp.getAll()
-    if (result !== []) {
+    if (result !== "No messages in database") {
       resolve(result)
     } else {
       reject(result)

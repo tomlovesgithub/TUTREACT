@@ -92,18 +92,18 @@ describe("message api errors correctly", function(){
     })
   })
 
-  // it("gets all messages", function(done) {
-  //   const res = request(MessageApp)
-  //   .get("/")
-  //   res.expect(200)
-  //   .end(function(err, res) {
-  //     if (err) {
-  //       return done(err)
-  //     }
-  //     expect(res.body.length).to.equal(1)
-  //     done()
-  //   })
-  // })
+  it("gets all errors", function(done) {
+    const res = request(MessageApp)
+    .get("/")
+    res.expect(404)
+    .end(function(err, res) {
+      if (err) {
+        return done(err)
+      }
+      expect(res.body.error).to.equal("No messages in database")
+      done()
+    })
+  })
 
   // it("updates a message", function(done) {
   //   data = {

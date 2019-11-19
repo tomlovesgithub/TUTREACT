@@ -46,7 +46,10 @@ describe("app", function() {
   });
   it("rejects empty messages", function() {
     var testApp = new MessageApp()
-    testApp.post('')
     expect(testApp.post('')).to.equal("You can't post an empty message")
+  })
+  it("no messages if no messages are sent", function() {
+    var testApp = new MessageApp()
+    expect(testApp.getAll()).to.equal("No messages in database")
   })
 })
