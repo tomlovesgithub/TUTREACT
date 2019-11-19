@@ -52,4 +52,12 @@ describe("app", function() {
     var testApp = new MessageApp()
     expect(testApp.getAll()).to.equal("No messages in database")
   })
+  it("rejects false update", function() {
+    var testApp = new MessageApp()
+    expect(testApp.update(0, "")).to.equal("Message not found in database")
+  })
+  it("no messages if no messages are sent", function() {
+    var testApp = new MessageApp()
+    expect(testApp.delete(0)).to.equal("Message not found in database")
+  })
 })

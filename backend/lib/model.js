@@ -25,7 +25,7 @@ function post(content){
 function deleteMessage(id){
   return new Promise((resolve, reject) => {
     var result = messageApp.delete(id)
-    if (result !== []) {
+    if (result !== "Message not found in database") {
       resolve(result)
     } else {
       reject(result)
@@ -36,7 +36,7 @@ function deleteMessage(id){
 function updateMessage(id, content){
   return new Promise((resolve, reject) => {
     var result = messageApp.update(id, content)
-    if (result !== []) {
+    if (result !== "Message not found in database") {
       resolve(result)
     } else {
       reject(result)

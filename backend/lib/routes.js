@@ -29,7 +29,7 @@ router.post('/message', async (req, res) => {
     })
     .catch((err) => {
       res.status(404).json({
-      error: err.message
+      error: err
     })
   })
   })
@@ -40,7 +40,7 @@ router.post('/message', async (req, res) => {
       res.json(messages)
     })
     .catch((err) => res.status(404).json({
-      error: err.message
+      error: err
     }))
   })
 

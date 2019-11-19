@@ -29,21 +29,30 @@ class MessageApp {
   getAll(){
     if (this.messages.length !== 0) {
       return this.messages
-  }
+    }
     else {
       return "No messages in database"
     }
   }
 
   update(id,update){
-    this.messages[id].content = update
-    this.writeToJson()
-    return this.messages
+    if (this.messages.some(message => message.id == id)) {
+      this.messages[id].content = update
+      this.writeToJson()
+      return this.messages
+    } else {
+      return "Message not found in database"
+        }
   }
 
   delete(id) {
-    this.messages = this.messages.filter(message => message.id != id)
-    this.writeToJson()
+    if (this.messages.some(message => message.id == id)) {
+      this.messages = this.messages.filter(message => message.id != id)
+      this.writeToJson()
+    }
+    else {
+      return "Message not found in database"
+    }
   }
 
   readFromJson(){
