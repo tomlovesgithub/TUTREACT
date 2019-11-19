@@ -18,7 +18,7 @@ class MessageApp {
       return this.messages
     }
     else if (!content){
-      return "You can't post an empty message"
+      return []
     }
   }
 
@@ -27,12 +27,7 @@ class MessageApp {
   }
 
   getAll(){
-    if (this.messages.length !== 0) {
       return this.messages
-    }
-    else {
-      return "No messages in database"
-    }
   }
 
   update(id,update){
@@ -41,7 +36,7 @@ class MessageApp {
       this.writeToJson()
       return this.messages
     } else {
-      return "Message not found in database"
+      return []
         }
   }
 

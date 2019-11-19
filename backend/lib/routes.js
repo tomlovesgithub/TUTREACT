@@ -5,16 +5,12 @@ const router = Router()
 router.get('/', async (req, res) => {
   await messageApp.getAll()
   .then((messages) => res.json(messages))
-  .catch((err) => res.status(404).json({
-    error: err
-  }))
+  .catch((err) => res.status(404).json({ error: err }))
 })
 
 router.post('/message', async (req, res) => {
   await messageApp.post(req.body.content)
-  .then((messages) => {
-    res.json(messages)
-  })
+  .then((messages) => res.json(messages))
   .catch((err) => {
     res.status(404).json({
     error: err

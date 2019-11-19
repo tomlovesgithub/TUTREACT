@@ -4,20 +4,20 @@ var messageApp = new MessageApp("/\///json/\//messages.json")
 function getAll(){
   return new Promise((resolve, reject) => {
     var result = messageApp.getAll()
-    if (result !== "No messages in database") {
+    if (result.length !== 0) {
       resolve(result)
     } else {
-      reject(result)
+      reject("No messages in database")
     }
   })
 }
 function post(content){
   return new Promise((resolve, reject) => {
     var message = messageApp.post(content)
-    if (message !== "You can't post an empty message") {
+    if (message.length !== 0) {
       resolve(message)
     } else {
-      reject(message)
+      reject("You can't post an empty message")
     }
   })
 }
@@ -25,7 +25,7 @@ function post(content){
 function deleteMessage(id){
   return new Promise((resolve, reject) => {
     var result = messageApp.delete(id)
-    if (result !== "Message not found in database") {
+    if (result !== 'Message not found in database') {
       resolve(result)
     } else {
       reject(result)
@@ -36,10 +36,10 @@ function deleteMessage(id){
 function updateMessage(id, content){
   return new Promise((resolve, reject) => {
     var result = messageApp.update(id, content)
-    if (result !== "Message not found in database") {
+    if (result.length !== 0) {
       resolve(result)
     } else {
-      reject(result)
+      reject('Message not found in database')
     }
   })
 }

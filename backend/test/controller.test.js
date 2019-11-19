@@ -1,12 +1,12 @@
 import { expect } from "chai";
 import MessageApp from '../lib/controller.js'
 
-describe("app", function() {
+describe("controller", function() {
   var testApp = new MessageApp
-  it("app has messages", function() {
+  it("has messages", function() {
     expect(testApp.messages).to.deep.equal([]);
   });
-  it("app creates (post)", function() {
+  it("creates (post)", function() {
     testApp.post('hello world')
     expect(testApp.messages.length).to.equal(1)
   });
@@ -46,18 +46,18 @@ describe("app", function() {
   });
   it("rejects empty messages", function() {
     var testApp = new MessageApp()
-    expect(testApp.post('')).to.equal("You can't post an empty message")
+    expect(testApp.post('')).to.deep.equal([])
   })
   it("no messages if no messages are sent", function() {
     var testApp = new MessageApp()
-    expect(testApp.getAll()).to.equal("No messages in database")
+    expect(testApp.getAll()).to.deep.equal([])
   })
   it("rejects false update", function() {
     var testApp = new MessageApp()
-    expect(testApp.update(0, "")).to.equal("Message not found in database")
+    expect(testApp.update(0, "")).to.deep.equal([])
   })
-  it("no messages if no messages are sent", function() {
+  it("errors if no message to delete", function() {
     var testApp = new MessageApp()
-    expect(testApp.delete(0)).to.equal("Message not found in database")
+    expect(testApp.delete(0)).to.deep.equal('Message not found in database')
   })
 })
