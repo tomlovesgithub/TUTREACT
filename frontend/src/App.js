@@ -18,7 +18,7 @@ class MessageApp extends React.Component {
       </button>
       <ul
       id="message_list">
-        Messages
+      message
       </ul>
     </div>
   );
