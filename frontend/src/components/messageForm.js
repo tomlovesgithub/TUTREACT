@@ -8,14 +8,14 @@ class MessageForm extends React.Component {
     }
   }
 
-  componentDidUpdate(){
-    console.log(this.state);
-  }
-
   handleChange(e){
     this.setState({
       currentMessage: e.target.value
     })
+  }
+
+  handleSubmit = () => {
+    this.props.submitMessage(this.state.currentMessage)
   }
 
   render(){
@@ -29,6 +29,7 @@ class MessageForm extends React.Component {
           </textarea>
           <br/>
           <button
+            onClick={this.handleSubmit}
             type="button"
             name="Submit"
             id="submit">

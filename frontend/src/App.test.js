@@ -8,7 +8,7 @@ import { mount } from 'enzyme'
 
 Enzyme.configure({ adapter: new Adapter()})
 
-let fetchMock = {
+let axiosMock = {
   post: jest.fn(() => Promise.resolve({ data: {} }))
 }
 
@@ -38,7 +38,7 @@ describe('App', () => {
     const component = mount(<MessageApp/>);
     component.find('textarea#message_box').simulate('change', { target: { value: 'Hello' } })
     component.find('form').simulate('submit')
-    expect(fetchMock.post).toHaveBeenCalled();
+    expect(axiosMock.post).toHaveBeenCalled();
   });
 
 });
