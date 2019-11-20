@@ -1,11 +1,30 @@
 import React from 'react';
 
 class MessageForm extends React.Component {
+  constructor(){
+    super()
+    this.state = {
+      currentMessage: null
+    }
+  }
+
+  componentDidUpdate(){
+    console.log(this.state);
+  }
+
+  handleChange(e){
+    this.setState({
+      currentMessage: e.target.value
+    })
+  }
+
   render(){
     return (
       <div>
-      <form>
+      <form
+      ref='formRef'>
       <textarea
+      onChange={(e) => this.handleChange(e)}
         id='message_box'>
         </textarea>
         <br/>
