@@ -21,20 +21,20 @@ class MessageForm extends React.Component {
   render(){
     return (
       <div>
-      <form
-      ref='formRef'>
-      <textarea
-      onChange={(e) => this.handleChange(e)}
-        id='message_box'>
-        </textarea>
-        <br/>
-        <button
-        type="button"
-        name="Submit"
-        id="submit">
-        Submit
-      </button>
-      </form>
+        <form
+          ref='formRef'>
+          <textarea
+            onChange={(e) => this.handleChange(e)}
+            id='message_box'>
+          </textarea>
+          <br/>
+          <button
+            type="button"
+            name="Submit"
+            id="submit">
+            Submit
+          </button>
+        </form>
       </div>
     );
   }
