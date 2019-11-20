@@ -27,17 +27,18 @@ class MessageApp {
   }
 
   getAll(){
-      return this.messages
+    return this.messages
   }
 
   update(id,update){
     if (this.messages.some(message => message.id == id)) {
-      this.messages[id].content = update
+      var index = this.messages.map(message => message.id).indexOf(id)
+      this.messages[index].content = update
       this.writeToJson()
       return this.messages
     } else {
       return []
-        }
+    }
   }
 
   delete(id) {

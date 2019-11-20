@@ -8,15 +8,10 @@ import { mount, shallow } from 'enzyme'
 Enzyme.configure({ adapter: new Adapter()})
 
 describe('Form', () => {
+
   it('renders without crashing', () => {
     const component = mount(<MessageForm/>);
     expect(component).toMatchSnapshot();
-  });
-
-  it('textarea clears on submit', () => {
-  });
-
-  it('submit calls post ', () => {
   });
 
 });
