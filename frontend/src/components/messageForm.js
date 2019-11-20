@@ -4,6 +4,7 @@ class MessageForm extends React.Component {
   render(){
     return (
       <div>
+      <form>
       <textarea
         id='message_box'>
         </textarea>
@@ -14,6 +15,7 @@ class MessageForm extends React.Component {
         id="submit">
         Submit
       </button>
+      </form>
       </div>
     );
   }
