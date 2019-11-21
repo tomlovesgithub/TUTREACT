@@ -1,10 +1,9 @@
 import MessageApp from './model'
 
 let messageApp;
-
 if (process.env.npm_lifecycle_event == "test") {
-  messageApp = new MessageApp(`/\///json/\//messages.json`)
-  } else if (process.env.npm_lifecycle_event == "start") {
+  messageApp = new MessageApp(`/\///json/\//testMessages.json`)
+  } else {
     messageApp = new MessageApp(`/\///json/\//messages.json`)
     }
 
