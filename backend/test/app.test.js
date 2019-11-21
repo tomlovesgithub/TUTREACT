@@ -17,7 +17,7 @@ describe("message API endpoint tests", function(){
       if (err) {
         return done(err)
       }
-      expect(res.body.length).to.equal(1)
+      expect(res.body[0].content).to.equal('hi world');
       done()
     })
   })
@@ -74,7 +74,7 @@ describe("message API endpoint tests", function(){
 
 
 describe("message api errors correctly", function(){
-  it("posts a message errors", function(done) {
+  it("posts empty message errors", function(done) {
     data = {
       content: ""
     };
@@ -92,7 +92,7 @@ describe("message api errors correctly", function(){
     })
   })
 
-  it("gets all errors", function(done) {
+  it("gets all errors when no messages", function(done) {
     const res = request(MessageApp)
     .get("/")
     res.expect(404)
@@ -105,7 +105,7 @@ describe("message api errors correctly", function(){
     })
   })
 
-  it("can error after updating", function(done) {
+  it("errors on bad update", function(done) {
     data = {
       content: "Hello World"
     }
@@ -123,7 +123,7 @@ describe("message api errors correctly", function(){
     })
   })
 
-  it("deletes a message", function(done) {
+  it("errors deleting message that doesnt exist", function(done) {
     data = {
       id: 0
     };
