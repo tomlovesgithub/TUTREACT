@@ -69,20 +69,16 @@ describe("controller", function() {
 
   let testApp = new MessageApp
 
-  it("reads and writes from and to given filepath 1", function() {
+  it("reads and writes from and to given filepath", function() {
     let testFileWriteApp = new MessageApp("/\///json/\//testMessages.json")
     expect(testFileWriteApp.messages.length).to.equal(0)
     testFileWriteApp.post("Hi")
     expect(testFileWriteApp.messages.length).to.equal(1)
     let testFileReadApp = new MessageApp("/\///json/\//testMessages.json")
     expect(testFileReadApp.messages.length).to.equal(1)
-  });
-
-  it("reads and writes from and to given filepath 2", function() {
-    let testFileReadApp = new MessageApp("/\///json/\//testMessages.json")
     testFileReadApp.delete(1)
-    let testFileWriteApp = new MessageApp("/\///json/\//testMessages.json")
-    expect(testFileWriteApp.messages.length).to.equal(0)
+    let testFileClearedApp = new MessageApp("/\///json/\//testMessages.json")
+    expect(testFileClearApp.messages.length).to.equal(0)
   });
 
   it("rejects empty messages", function() {

@@ -70,7 +70,7 @@ class MessageApp {
   writeToJson(){
     if (this.filepath) {
       const jsonItem = JSON.stringify(this.messages)
-      fs.writeFile(__dirname+path.normalize(this.filepath), jsonItem, (err) => {
+      fs.writeFileSync(__dirname+path.normalize(this.filepath), jsonItem, (err) => {
         if (err) throw err;
       });
     }
