@@ -40,7 +40,7 @@ describe("message API endpoint tests", function(){
       content: "Hello World"
     }
     const res = request(MessageApp)
-    .put('/update/0')
+    .put('/update/1')
     .send(data)
     .set("Accept", "application/json")
     res.expect(200)
@@ -55,10 +55,10 @@ describe("message API endpoint tests", function(){
 
   it("deletes a message", function(done) {
     data = {
-      id: 0
+      id: 1
     };
     const res = request(MessageApp)
-    .delete("/delete/0")
+    .delete("/delete/1")
     .send(data)
     .set("Accept", "application/json")
     res.expect(200)

@@ -1,6 +1,14 @@
 import fs from "fs"
 import path from 'path'
 
+function newId(array){
+  if (array.length > 0) {
+    return array[array.length-1].id + 1;
+  } else {
+    return 1
+  }
+}
+
 class MessageApp {
   constructor(filepath) {
     this.filepath = filepath
@@ -12,7 +20,7 @@ class MessageApp {
       this.messages.push({
         content: content,
         date: new Date(),
-        id: this.messages.length
+        id: newId(this.messages)
       })
       this.writeToJson()
       return this.messages
@@ -31,12 +39,13 @@ class MessageApp {
   }
 
   update(id,update){
-    if (this.messages.some(message => message.id == id)) {
-      var index = this.messages.map(message => message.id).indexOf(id)
+    if (this.messages.some(message => parseInt(message.id) == parseInt(id))) {
+      let index = this.messages.map(message => parseInt(message.id)).indexOf(parseInt(id))
       this.messages[index].content = update
       this.writeToJson()
       return this.messages
-    } else {
+    }
+    else {
       return []
     }
   }
@@ -52,10 +61,11 @@ class MessageApp {
   }
 
   readFromJson(){
-    return JSON.parse(fs.readFileSync(__dirname+path.normalize(this.filepath), "utf8", (err, data) => {
+    var result = JSON.parse(fs.readFileSync(__dirname+path.normalize(this.filepath), "utf8", (err, data) => {
       if (err) throw err;
-    })
-  )}
+    }))
+    return result
+  }
 
   writeToJson(){
     if (this.filepath) {

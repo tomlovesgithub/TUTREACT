@@ -1,9 +1,9 @@
 import MessageApp from './controller'
-var messageApp = new MessageApp("/\///json/\//messages.json")
+let messageApp = new MessageApp("/\///json/\//messages.json")
 
 function getAll(){
   return new Promise((resolve, reject) => {
-    var result = messageApp.getAll()
+    let result = messageApp.getAll()
     if (result.length !== 0) {
       resolve(result)
     } else {
@@ -13,7 +13,7 @@ function getAll(){
 }
 function post(content){
   return new Promise((resolve, reject) => {
-    var message = messageApp.post(content)
+    let message = messageApp.post(content)
     if (message.length !== 0) {
       resolve(message)
     } else {
@@ -24,7 +24,7 @@ function post(content){
 
 function deleteMessage(id){
   return new Promise((resolve, reject) => {
-    var result = messageApp.delete(id)
+    let result = messageApp.delete(id)
     if (result !== 'Message not found in database') {
       resolve(result)
     } else {
@@ -35,7 +35,7 @@ function deleteMessage(id){
 
 function updateMessage(id, content){
   return new Promise((resolve, reject) => {
-    var result = messageApp.update(id, content)
+    let result = messageApp.update(id, content)
     if (result.length !== 0) {
       resolve(result)
     } else {
