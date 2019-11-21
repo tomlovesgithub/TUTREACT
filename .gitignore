@@ -1,9 +1,9 @@
 node_modules
 package-lock.json
 /backend/node_modules
-/frontend/build
 /backend/package-lock.json
+/backend/.nyc_output
+/frontend/build
 /frontend/package-lock.json
 /frontend/coverage
-/backend/.nyc_output
 /frontend.gitignore
