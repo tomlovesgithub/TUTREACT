@@ -1,5 +1,5 @@
 import {Router} from "express"
-const messageApp = require("./model.js")
+const messageApp = require("./controller.js")
 const router = Router()
 
 router.get('/', async (req, res) => {

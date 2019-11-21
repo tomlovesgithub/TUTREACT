@@ -1,80 +1,53 @@
-import fs from "fs"
-import path from 'path'
+import MessageApp from './model'
+let messageApp = new MessageApp("/\///json/\//messages.json")
 
-function newId(array){
-  if (array.length > 0) {
-    return array[array.length-1].id + 1;
-  } else {
-    return 1
-  }
+function getAll(){
+  return new Promise((resolve, reject) => {
+    let result = messageApp.getAll()
+    if (result.length !== 0) {
+      resolve(result)
+    } else {
+      reject("No messages in database")
+    }
+  })
+}
+function post(content){
+  return new Promise((resolve, reject) => {
+    let message = messageApp.post(content)
+    if (message.length !== 0) {
+      resolve(message)
+    } else {
+      reject("You can't post an empty message")
+    }
+  })
 }
 
-class MessageApp {
-  constructor(filepath) {
-    this.filepath = filepath
-    this.messages = filepath ? this.readFromJson() : []
-  }
-
-  post(content) {
-    if (content) {
-      this.messages.push({
-        content: content,
-        date: new Date(),
-        id: newId(this.messages)
-      })
-      this.writeToJson()
-      return this.messages
+function deleteMessage(id){
+  return new Promise((resolve, reject) => {
+    let result = messageApp.delete(id)
+    if (result !== 'Message not found in database') {
+      resolve(result)
+    } else {
+      reject(result)
     }
-    else if (!content){
-      return []
-    }
-  }
-
-  get(id) {
-    return this.messages.filter(message => message.id == id )[0]
-  }
-
-  getAll(){
-    return this.messages
-  }
-
-  update(id,update){
-    if (this.messages.some(message => parseInt(message.id) == parseInt(id))) {
-      let index = this.messages.map(message => parseInt(message.id)).indexOf(parseInt(id))
-      this.messages[index].content = update
-      this.writeToJson()
-      return this.messages
-    }
-    else {
-      return []
-    }
-  }
-
-  delete(id) {
-    if (this.messages.some(message => message.id == id)) {
-      this.messages = this.messages.filter(message => message.id != id)
-      this.writeToJson()
-    }
-    else {
-      return "Message not found in database"
-    }
-  }
-
-  readFromJson(){
-    var result = JSON.parse(fs.readFileSync(__dirname+path.normalize(this.filepath), "utf8", (err, data) => {
-      if (err) throw err;
-    }))
-    return result
-  }
-
-  writeToJson(){
-    if (this.filepath) {
-      const jsonItem = JSON.stringify(this.messages)
-      fs.writeFileSync(__dirname+path.normalize(this.filepath), jsonItem, (err) => {
-        if (err) throw err;
-      });
-    }
-  }
+  })
 }
 
-export default MessageApp
+function updateMessage(id, content){
+  return new Promise((resolve, reject) => {
+    let result = messageApp.update(id, content)
+    if (result.length !== 0) {
+      resolve(result)
+    } else {
+      reject('Message not found in database')
+    }
+  })
+}
+
+
+module.exports = {
+  getAll,
+  post,
+  deleteMessage,
+  updateMessage
+}

@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import MessageApp from '../lib/controller.js'
+import MessageApp from '../lib/model.js'
 
 describe("app", function() {
 
@@ -63,11 +63,6 @@ describe("app", function() {
     expect(testApp.get(2).content).to.equal('update')
   });
 
-});
-
-describe("controller", function() {
-
-  let testApp = new MessageApp
 
   it("reads and writes from and to given filepath", function() {
     let testFileWriteApp = new MessageApp("/\///json/\//testMessages.json")
@@ -78,7 +73,7 @@ describe("controller", function() {
     expect(testFileReadApp.messages.length).to.equal(1)
     testFileReadApp.delete(1)
     let testFileClearedApp = new MessageApp("/\///json/\//testMessages.json")
-    expect(testFileClearApp.messages.length).to.equal(0)
+    expect(testFileClearedApp.messages.length).to.equal(0)
   });
 
   it("rejects empty messages", function() {
