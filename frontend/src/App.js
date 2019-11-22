@@ -14,14 +14,22 @@ class MessageApp extends Component {
   }
 
   submitMessage = (data) => {
+    console.log(data);
     axios.post(`${PORT}/message`, {
       content: data
     })
     .then((result)=>{
+      if (this.state.messages.length >= 1 ) {
       this.setState({
-        // loaded: false,
-        messages: [...this.state.messages, data]
+        loaded: false,
+        messages: [...this.state.messages, result]
       })
+    } else {
+      this.setState({
+        loaded: false,
+        messages: [result]
+      })
+    }
     })
   }
 
@@ -30,7 +38,7 @@ class MessageApp extends Component {
       axios.get(`${PORT}/`)
       .then((result)=>{
         this.setState({
-          // loaded: true,
+          loaded: true,
           messages: result
         })
       })

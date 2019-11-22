@@ -4,7 +4,7 @@ class MessageForm extends React.Component {
   constructor(){
     super()
     this.state = {
-      currentMessage: null
+      currentMessage: ''
     }
   }
 
@@ -31,7 +31,7 @@ class MessageForm extends React.Component {
           </textarea>
           <br/>
           <button
-            type="button"
+            type="submit"
             name="Submit"
             id="submit">
             Submit

@@ -30,9 +30,8 @@ describe('MessageApp', () => {
   })
 
   it('renders without crashing', () => {
-    const div = document.createElement('div');
-    ReactDOM.render(<MessageApp />, div);
-    ReactDOM.unmountComponentAtNode(div);
+    const component = mount(<MessageApp/>);
+    expect(component).toMatchSnapshot();
   });
 
   it('has textbox', () => {
