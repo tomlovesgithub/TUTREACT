@@ -17,6 +17,18 @@ if (process.env.npm_lifecycle_event == "test") {
         }
       })
     }
+
+    function getSingleMessage(id){
+      return new Promise((resolve, reject) => {
+        let result = messageApp.get(id)
+        if (result !== undefined) {
+          resolve(result)
+        } else {
+          reject("Message not found in database")
+        }
+      })
+    }
+
     function post(content){
       return new Promise((resolve, reject) => {
         let message = messageApp.post(content)
@@ -53,6 +65,7 @@ if (process.env.npm_lifecycle_event == "test") {
 
     module.exports = {
       getAll,
+      getSingleMessage,
       post,
       deleteMessage,
       updateMessage

@@ -8,6 +8,12 @@ router.get('/', async (req, res) => {
   .catch((err) => res.status(404).json({ error: err }))
 })
 
+router.get('/message/:id', async (req, res) => {
+  await messageApp.getSingleMessage(req.params.id)
+  .then((messages) => res.json(messages))
+  .catch((err) => res.status(404).json({ error: err }))
+})
+
 router.post('/message', async (req, res) => {
   await messageApp.post(req.body.content)
   .then((messages) => res.json(messages))
