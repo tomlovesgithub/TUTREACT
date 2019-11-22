@@ -14,7 +14,8 @@ class MessageForm extends React.Component {
     })
   }
 
-  handleSubmit = () => {
+  handleSubmit = (e) => {
+    e.preventDefault()
     this.props.submitMessage(this.state.currentMessage)
   }
 
@@ -22,6 +23,7 @@ class MessageForm extends React.Component {
     return (
       <div>
         <form
+          onSubmit={(e)=>this.handleSubmit(e)}
           ref='formRef'>
           <textarea
             onChange={(e) => this.handleChange(e)}
@@ -29,7 +31,6 @@ class MessageForm extends React.Component {
           </textarea>
           <br/>
           <button
-            onClick={this.handleSubmit}
             type="button"
             name="Submit"
             id="submit">
