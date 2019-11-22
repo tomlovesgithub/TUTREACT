@@ -14,18 +14,31 @@ class MessageApp extends Component {
   }
 
   submitMessage = (data) => {
-      axios.post(`${PORT}/message`, {
-        content: data
+    axios.post(`${PORT}/message`, {
+      content: data
+    })
+    .then((result)=>{
+      this.setState({
+        // loaded: false,
+        messages: [...this.state.messages, data]
       })
-      .then((result)=>{
-        this.setState({
-          isLoaded: false,
-          messages: [...this.state.messages, data]
-        })
     })
   }
 
+  getAllMessages(){
+    if (!this.state.loaded) {
+      axios.get(`${PORT}/`)
+      .then((result)=>{
+        this.setState({
+          // loaded: true,
+          messages: result
+        })
+      })
+    }
+  }
+
   render(){
+    this.getAllMessages()
     return (
       <div className="App">
       <MessageForm

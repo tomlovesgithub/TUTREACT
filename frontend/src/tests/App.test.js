@@ -21,7 +21,7 @@ describe('MessageApp', () => {
     Promise.resolve({
       data: []
     }));
-    
+
   })
 
   afterEach(function(){
