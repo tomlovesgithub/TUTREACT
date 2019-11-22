@@ -32,8 +32,8 @@ class MessageApp {
   }
 
   update(id,update){
-    if (this.messages.some(message => parseInt(message.id) == parseInt(id))) {
-      let index = this.messages.map(message => parseInt(message.id)).indexOf(parseInt(id))
+    let index = this.messages.map(message => parseInt(message.id)).indexOf(parseInt(id))
+    if (index >= 0) {
       this.messages[index].content = update
       this.writeToJson()
       return this.messages
@@ -44,9 +44,11 @@ class MessageApp {
   }
 
   delete(id) {
-    if (this.messages.some(message => message.id == id)) {
-      this.messages = this.messages.filter(message => message.id != id)
+    let index = this.messages.map(message => parseInt(message.id)).indexOf(parseInt(id))
+    if (index >= 0) {
+      this.messages.splice(index, 1);
       this.writeToJson()
+      return this.messages
     }
     else {
       return "Message not found in database"
