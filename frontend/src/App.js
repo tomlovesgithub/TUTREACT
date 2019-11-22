@@ -14,7 +14,6 @@ class MessageApp extends Component {
   }
 
   submitMessage = (data) => {
-    console.log(data);
     axios.post(`${PORT}/message`, {
       content: data
     })

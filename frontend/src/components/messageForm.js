@@ -17,6 +17,7 @@ class MessageForm extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault()
     this.props.submitMessage(this.state.currentMessage)
+    this.handleChange({target: {value: ''}})
   }
 
   render(){

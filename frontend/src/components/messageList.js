@@ -5,7 +5,7 @@ class MessageList extends React.Component {
     return (
       <ul
       id="message_list">
-      <li>message</li>
+      <li></li>
       </ul>
     );
   }
