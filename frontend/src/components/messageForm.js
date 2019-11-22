@@ -28,6 +28,7 @@ class MessageForm extends React.Component {
           ref='formRef'>
           <textarea
             onChange={(e) => this.handleChange(e)}
+            value={this.state.currentMessage}
             id='message_box'>
           </textarea>
           <br/>
