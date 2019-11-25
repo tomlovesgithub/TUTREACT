@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import MessageApp from './App'
+import MessageApp from '../App'
+import mockAxios from '../__mocks__/axios.js'
 
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
@@ -8,11 +9,16 @@ import { mount } from 'enzyme'
 
 Enzyme.configure({ adapter: new Adapter()})
 
-let fetchMock = {
-  post: jest.fn(() => Promise.resolve({ data: {} }))
-}
-
 describe('App', () => {
+  beforeEach(function(){
+    mockAxios.post.mockImplementation(() =>
+    Promise.resolve({
+      data: []
+    }))
+  })
+  afterEach(function(){
+    mockAxios.post.mockClear()
+  })
   it('renders without crashing', () => {
     const div = document.createElement('div');
     ReactDOM.render(<MessageApp />, div);
@@ -38,7 +44,7 @@ describe('App', () => {
     const component = mount(<MessageApp/>);
     component.find('textarea#message_box').simulate('change', { target: { value: 'Hello' } })
     component.find('form').simulate('submit')
-    expect(fetchMock.post).toHaveBeenCalled();
+    expect(mockAxios.post).toHaveBeenCalled();
   });
 
 });

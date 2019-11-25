@@ -8,7 +8,9 @@ class MessageApp extends React.Component {
 
     return (
       <div className="App">
-      <MessageForm/>
+      <MessageForm
+      // submitMessage={}
+      />
       <MessageList/>
       </div>
     );

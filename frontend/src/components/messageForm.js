@@ -4,12 +4,11 @@ class MessageForm extends React.Component {
   constructor(){
     super()
     this.state = {
-      currentMessage: null
+      currentMessage: ''
     }
   }
 
   componentDidUpdate(){
-    console.log(this.state);
   }
 
   handleChange(e){
@@ -18,10 +17,17 @@ class MessageForm extends React.Component {
     })
   }
 
+  handleSubmit = (e) => {
+    e.preventDefault()
+    this.props.submitMessage(this.state.currentMessage)
+    this.handleChange({target: {value: ''}})
+  }
+
   render(){
     return (
       <div>
       <form
+      onSubmit={(e)=>this.handleSubmit(e)}
       ref='formRef'>
       <textarea
       onChange={(e) => this.handleChange(e)}
