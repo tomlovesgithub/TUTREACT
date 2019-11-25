@@ -9,6 +9,13 @@ import { mount } from 'enzyme'
 
 Enzyme.configure({ adapter: new Adapter()})
 
+<<<<<<< HEAD:frontend/src/test/App.test.js
+=======
+let axiosMock = {
+  post: jest.fn(() => Promise.resolve({ data: {} }))
+}
+
+>>>>>>> e0af37a9ab3e42782abaf0a243a88505dbb140ff:frontend/src/App.test.js
 describe('App', () => {
   beforeEach(function(){
     mockAxios.post.mockImplementation(() =>
@@ -44,7 +51,11 @@ describe('App', () => {
     const component = mount(<MessageApp/>);
     component.find('textarea#message_box').simulate('change', { target: { value: 'Hello' } })
     component.find('form').simulate('submit')
+<<<<<<< HEAD:frontend/src/test/App.test.js
     expect(mockAxios.post).toHaveBeenCalled();
+=======
+    expect(axiosMock.post).toHaveBeenCalled();
+>>>>>>> e0af37a9ab3e42782abaf0a243a88505dbb140ff:frontend/src/App.test.js
   });
 
 });

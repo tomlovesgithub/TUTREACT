@@ -17,7 +17,7 @@ describe("message API endpoint tests", function(){
       if (err) {
         return done(err)
       }
-      expect(res.body.length).to.equal(1)
+      expect(res.body[0].content).to.equal('hi world');
       done()
     })
   })
@@ -40,7 +40,7 @@ describe("message API endpoint tests", function(){
       content: "Hello World"
     }
     const res = request(MessageApp)
-    .put('/update/0')
+    .put('/update/1')
     .send(data)
     .set("Accept", "application/json")
     res.expect(200)
@@ -53,12 +53,26 @@ describe("message API endpoint tests", function(){
     })
   })
 
+  it("gets a single message", function(done) {
+    const res = request(MessageApp)
+    .get("/message/1")
+    res.expect(200)
+    .end(function(err, res) {
+      if (err) {
+        return done(err)
+      }
+      expect(res.body.id).to.equal(1)
+      done()
+    })
+  })
+
+
   it("deletes a message", function(done) {
     data = {
-      id: 0
+      id: 1
     };
     const res = request(MessageApp)
-    .delete("/delete/0")
+    .delete("/delete/1")
     .send(data)
     .set("Accept", "application/json")
     res.expect(200)
@@ -74,7 +88,7 @@ describe("message API endpoint tests", function(){
 
 
 describe("message api errors correctly", function(){
-  it("posts a message errors", function(done) {
+  it("posts empty message errors", function(done) {
     data = {
       content: ""
     };
@@ -92,7 +106,7 @@ describe("message api errors correctly", function(){
     })
   })
 
-  it("gets all errors", function(done) {
+  it("gets all errors when no messages", function(done) {
     const res = request(MessageApp)
     .get("/")
     res.expect(404)
@@ -105,7 +119,20 @@ describe("message api errors correctly", function(){
     })
   })
 
-  it("can error after updating", function(done) {
+  it("errors if cant find single message", function(done) {
+    const res = request(MessageApp)
+    .get("/message/1")
+    res.expect(404)
+    .end(function(err, res) {
+      if (err) {
+        return done(err)
+      }
+      expect(res.body.error).to.equal("Message not found in database")
+      done()
+    })
+  })
+
+  it("errors on bad update", function(done) {
     data = {
       content: "Hello World"
     }
@@ -123,7 +150,7 @@ describe("message api errors correctly", function(){
     })
   })
 
-  it("deletes a message", function(done) {
+  it("errors deleting message that doesnt exist", function(done) {
     data = {
       id: 0
     };

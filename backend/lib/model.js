@@ -1,53 +1,75 @@
-import MessageApp from './controller'
-var messageApp = new MessageApp("/\///json/\//messages.json")
+import fs from "fs"
+import path from 'path'
+import helper from './helper.js'
 
-function getAll(){
-  return new Promise((resolve, reject) => {
-    var result = messageApp.getAll()
-    if (result.length !== 0) {
-      resolve(result)
-    } else {
-      reject("No messages in database")
+class MessageApp {
+  constructor(filepath) {
+    this.filepath = filepath
+    this.messages = filepath ? this.readFromJson() : []
+  }
+
+  post(content) {
+    if (content) {
+      this.messages.push({
+        content: content,
+        date: new Date(),
+        id: helper.newId(this.messages)
+      })
+      this.writeToJson()
+      return this.messages
     }
-  })
-}
-function post(content){
-  return new Promise((resolve, reject) => {
-    var message = messageApp.post(content)
-    if (message.length !== 0) {
-      resolve(message)
-    } else {
-      reject("You can't post an empty message")
+    else if (!content){
+      return []
     }
-  })
-}
+  }
 
-function deleteMessage(id){
-  return new Promise((resolve, reject) => {
-    var result = messageApp.delete(id)
-    if (result !== 'Message not found in database') {
-      resolve(result)
-    } else {
-      reject(result)
+  get(id) {
+    return this.messages.filter(message => message.id == id )[0]
+  }
+
+  getAll(){
+    return this.messages
+  }
+
+  update(id,update){
+    let index = this.messages.map(message => parseInt(message.id)).indexOf(parseInt(id))
+    if (index >= 0) {
+      this.messages[index].content = update
+      this.writeToJson()
+      return this.messages
     }
-  })
-}
-
-function updateMessage(id, content){
-  return new Promise((resolve, reject) => {
-    var result = messageApp.update(id, content)
-    if (result.length !== 0) {
-      resolve(result)
-    } else {
-      reject('Message not found in database')
+    else {
+      return []
     }
-  })
+  }
+
+  delete(id) {
+    let index = this.messages.map(message => parseInt(message.id)).indexOf(parseInt(id))
+    if (index >= 0) {
+      this.messages.splice(index, 1);
+      this.writeToJson()
+      return this.messages
+    }
+    else {
+      return "Message not found in database"
+    }
+  }
+
+  readFromJson(){
+    var result = JSON.parse(fs.readFileSync(__dirname+path.normalize(this.filepath), "utf8", (err, data) => {
+      if (err) throw err;
+    }))
+    return result
+  }
+
+  writeToJson(){
+    if (this.filepath) {
+      const jsonItem = JSON.stringify(this.messages)
+      fs.writeFileSync(__dirname+path.normalize(this.filepath), jsonItem, (err) => {
+        if (err) throw err;
+      });
+    }
+  }
 }
 
-
-module.exports = {
-  getAll,
-  post,
-  deleteMessage,
-  updateMessage
-}
+export default MessageApp
