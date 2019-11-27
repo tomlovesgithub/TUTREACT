@@ -8,8 +8,9 @@ const PORT = 'http://localhost:3001';
 class MessageApp extends Component {
   constructor(){
     super()
-    this.state ={
-      messages: []
+    this.state = {
+      messages: [],
+      loaded: false
     }
   }
 
@@ -38,7 +39,7 @@ class MessageApp extends Component {
       .then((result)=>{
         this.setState({
           loaded: true,
-          messages: result
+          messages: result.data
         })
       })
     }
@@ -52,7 +53,9 @@ class MessageApp extends Component {
       submitMessage={this.submitMessage}
       />
       <MessageList
+      loaded={this.state.loaded}
       messages={this.state.messages}
+      error={this.state.error}
       />
       </div>
     );
