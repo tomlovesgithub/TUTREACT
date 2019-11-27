@@ -14,13 +14,12 @@ describe('List', () => {
     expect(component).toMatchSnapshot();
   });
 
-  it('takes messages as props', () => {
+  it('takes messages as props and displays them', () => {
   const component = shallow(<MessageList
     messages={[{id:1, content:'hello', date:'2000'}]}
     loaded={true}
     />);
-  console.log(component.find('ul#message_list'))
-  expect(component.state('currentMessage')).toEqual('Hello');
+    expect(component.find('ul#message_list').length).toBe(1);
 });
 
 });

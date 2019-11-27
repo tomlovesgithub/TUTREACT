@@ -2,13 +2,14 @@ import React, {Component} from 'react';
 
 class MessageList extends Component {
   render(){
-    if (!this.props.loaded) {
+    let {loaded, messages} = this.props
+    if (!loaded) {
       return(<ul id='message_list'>loading...</ul>)
     }
     else {
       return(
         <ul id='message_list'>
-        {this.props.messages.map(message=>{
+        {messages.map(message=>{
           return <li
           style={{border: "1px solid black"}}
           key={message.id}>

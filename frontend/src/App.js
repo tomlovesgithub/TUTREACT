@@ -19,17 +19,29 @@ class MessageApp extends Component {
       content: data
     })
     .then((result)=>{
-      if (this.state.messages.length >= 1 ) {
-      this.setState({
-        loaded: false,
-        messages: [...this.state.messages, result]
-      })
-    } else {
-      this.setState({
-        loaded: false,
-        messages: [result]
-      })
-    }
+      this.setMessages(result.data)
+      this.refs.messageFormRef.handleChange('')
+    })
+    .catch((err)=>{
+      this.setError(err.message)
+    })
+  }
+
+  setError(error){
+    this.setState({
+      error: error
+    })
+  }
+
+  setMessages(messages){
+    this.setState({
+      messages: messages
+    })
+  }
+
+  setLoaded(loaded){
+    this.setState({
+      loaded: loaded
     })
   }
 
@@ -37,10 +49,12 @@ class MessageApp extends Component {
     if (!this.state.loaded) {
       axios.get(`${PORT}/`)
       .then((result)=>{
-        this.setState({
-          loaded: true,
-          messages: result.data
-        })
+        this.setMessages(result.data)
+        this.setLoaded(true)
+      })
+      .catch((err)=>{
+        this.setError(err.data)
+        this.setLoaded(true)
       })
     }
   }
@@ -50,11 +64,8 @@ class MessageApp extends Component {
     return (
       <div className="App">
       <MessageForm
-<<<<<<< HEAD
-      // submitMessage={}
-=======
+      ref='messageFormRef'
       submitMessage={this.submitMessage}
->>>>>>> e0af37a9ab3e42782abaf0a243a88505dbb140ff
       />
       <MessageList
       loaded={this.state.loaded}
