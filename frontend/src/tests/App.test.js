@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import MessageApp from '../App'
 
 import mockAxios from '../__mocks__/axios.js'
