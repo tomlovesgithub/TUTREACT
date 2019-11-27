@@ -20,13 +20,4 @@ describe('Form', () => {
   expect(component.state('currentMessage')).toEqual('Hello');
 });
 
-it('clears message box on submit', () => {
-  const component = mount(<MessageForm
-    submitMessage={function(item){return true}}
-    />);
-    component.find('textarea#message_box').simulate('change', { target: { value: 'Hello' } })
-    component.find('form').simulate('submit')
-    expect(component.state('currentMessage')).toEqual('');
-  });
-
 });

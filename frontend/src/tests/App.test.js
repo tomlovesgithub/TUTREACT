@@ -48,11 +48,12 @@ describe('MessageApp', () => {
     expect(component.exists('ul#message_list')).toBe(true);
   });
 
-  it('posts data on submit', () => {
+  it('posts data and clears message box on submit success', () => {
     const component = mount(<MessageApp/>);
     component.find('textarea#message_box').simulate('change', { target: { value: 'Hello' } })
     component.find('form').simulate('submit')
     expect(mockAxios.post).toHaveBeenCalledWith("http://localhost:3001/message", {"content": "Hello"});
+    expect(component.instance().refs.messageFormRef.state.currentMessage).toEqual('');
   });
 
   it('Loads data from api', () => {
