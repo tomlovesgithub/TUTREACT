@@ -50,7 +50,11 @@ class MessageApp extends Component {
     return (
       <div className="App">
       <MessageForm
+<<<<<<< HEAD
+      // submitMessage={}
+=======
       submitMessage={this.submitMessage}
+>>>>>>> e0af37a9ab3e42782abaf0a243a88505dbb140ff
       />
       <MessageList
       loaded={this.state.loaded}
