@@ -7,7 +7,7 @@ class MessageForm extends React.Component {
       currentMessage: ''
     }
   }
-
+  
   handleChange(e){
     this.setState({
       currentMessage: e.target.value
@@ -18,7 +18,7 @@ class MessageForm extends React.Component {
     e.preventDefault()
     this.props.submitMessage(this.state.currentMessage)
     this.handleChange({target: {value: ''}})
-  }
+  };
 
   render(){
     return (
