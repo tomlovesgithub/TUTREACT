@@ -4,38 +4,40 @@ class MessageForm extends React.Component {
   constructor(){
     super()
     this.state = {
-      currentMessage: null
+      currentMessage: ''
     }
   }
-
+  
   handleChange(e){
     this.setState({
       currentMessage: e.target.value
     })
   }
-
-  handleSubmit = () => {
+  
+  handleSubmit = (e) => {
+    e.preventDefault()
     this.props.submitMessage(this.state.currentMessage)
-  }
+    this.handleChange({target: {value: ''}})
+  };
 
   render(){
     return (
       <div>
-        <form
-          ref='formRef'>
-          <textarea
-            onChange={(e) => this.handleChange(e)}
-            id='message_box'>
-          </textarea>
-          <br/>
-          <button
-            onClick={this.handleSubmit}
-            type="button"
-            name="Submit"
-            id="submit">
-            Submit
-          </button>
-        </form>
+      <form
+      onSubmit={(e)=>this.handleSubmit(e)}
+      ref='formRef'>
+      <textarea
+      onChange={(e) => this.handleChange(e)}
+        id='message_box'>
+        </textarea>
+        <br/>
+        <button
+        type="button"
+        name="Submit"
+        id="submit">
+        Submit
+      </button>
+      </form>
       </div>
     );
   }

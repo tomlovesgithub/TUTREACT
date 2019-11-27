@@ -1,6 +1,7 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import MessageApp from './App'
+import MessageApp from '../App'
+
+import mockAxios from '../__mocks__/axios.js'
 
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
@@ -8,15 +9,28 @@ import { mount } from 'enzyme'
 
 Enzyme.configure({ adapter: new Adapter()})
 
-let axiosMock = {
-  post: jest.fn(() => Promise.resolve({ data: {} }))
-}
+describe('MessageApp', () => {
+  beforeEach(function(){
+    mockAxios.post.mockImplementation(() =>
+    Promise.resolve({
+      data: []
+    }))
 
-describe('App', () => {
+    mockAxios.get.mockImplementation(() =>
+    Promise.resolve({
+      data: []
+    }));
+
+  })
+
+  afterEach(function(){
+    mockAxios.post.mockClear()
+    mockAxios.get.mockClear()
+  })
+
   it('renders without crashing', () => {
-    const div = document.createElement('div');
-    ReactDOM.render(<MessageApp />, div);
-    ReactDOM.unmountComponentAtNode(div);
+    const component = mount(<MessageApp/>);
+    expect(component).toMatchSnapshot();
   });
 
   it('has textbox', () => {
@@ -38,7 +52,12 @@ describe('App', () => {
     const component = mount(<MessageApp/>);
     component.find('textarea#message_box').simulate('change', { target: { value: 'Hello' } })
     component.find('form').simulate('submit')
-    expect(axiosMock.post).toHaveBeenCalled();
+    expect(mockAxios.post).toHaveBeenCalledWith("http://localhost:3001/message", {"content": "Hello"});
+  });
+
+  it('Loads data from api', () => {
+    mount(<MessageApp />);
+    expect(mockAxios.get).toHaveBeenCalledTimes(1);
   });
 
 });
