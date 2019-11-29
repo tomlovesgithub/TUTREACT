@@ -1,5 +1,6 @@
 import React from 'react';
 import MessageList from '../components/MessageList'
+import mockMessages from '../../__mocks__/messages.json'
 
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
@@ -16,10 +17,10 @@ describe('List', () => {
 
   it('takes messages as props and displays them', () => {
   const component = shallow(<MessageList
-    messages={[{id:1, content:'hello', date:'2000'}]}
+    messages={mockMessages}
     loaded={true}
     />);
-    expect(component.find('ul#message_list').length).toBe(1);
+    expect(component.find('ul#message_list').children().length).toBe(5);
 });
 
 });

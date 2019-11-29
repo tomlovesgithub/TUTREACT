@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import MessageList from './components/messageList.js'
+import ErrorHandler from './components/errorHandler.js'
 import MessageForm from './components/messageForm.js'
 
 import axios from 'axios';
@@ -10,21 +11,9 @@ class MessageApp extends Component {
     super()
     this.state = {
       messages: [],
-      loaded: false
+      loaded: false,
+      error: null
     }
-  }
-
-  submitMessage = (data) => {
-    axios.post(`${PORT}/message`, {
-      content: data
-    })
-    .then((result)=>{
-      this.setMessages(result.data)
-      this.refs.messageFormRef.handleChange('')
-    })
-    .catch((err)=>{
-      this.setError(err.message)
-    })
   }
 
   setError(error){
@@ -45,6 +34,19 @@ class MessageApp extends Component {
     })
   }
 
+  submitMessage = (data) => {
+    axios.post(`${PORT}/message`, {
+      content: data
+    })
+    .then((result)=>{
+      this.setMessages(result.data)
+      this.refs.messageFormRef.handleChange('')
+    })
+    .catch((err)=>{
+      this.setError(err.message)
+    })
+  }
+
   getAllMessages(){
     if (!this.state.loaded) {
       axios.get(`${PORT}/`)
@@ -62,17 +64,19 @@ class MessageApp extends Component {
   render(){
     this.getAllMessages()
     return (
-      <div className="App">
+      <ul className="App">
       <MessageForm
       ref='messageFormRef'
       submitMessage={this.submitMessage}
       />
+      <ErrorHandler
+      error={this.state.error}
+      />
       <MessageList
       loaded={this.state.loaded}
       messages={this.state.messages}
-      error={this.state.error}
       />
-      </div>
+      </ul>
     );
   }
 }

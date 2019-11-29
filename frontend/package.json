@@ -12,11 +12,17 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "testCov": "npm test -- --coverage --watchAll",
+    "testCov": "npm test -- --coverage",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/App/App.js",
+      "src/App/components/*"
+    ]
   },
   "browserslist": {
     "production": [

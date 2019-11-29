@@ -6,23 +6,27 @@ class MessageList extends Component {
     if (!loaded) {
       return(<ul id='message_list'>loading...</ul>)
     }
-    else {
+    if (messages.length > 0){
       return(
         <ul id='message_list'>
         {messages.map(message=>{
-          return <li
-          style={{border: "1px solid black"}}
-          key={message.id}>
+          return (
+            <li
+            style={{border: "1px solid black", width: 'fit-content'}}
+            key={message.id}>
             {message.content}
             <br/>
             {message.date}
-            </li>
+            </li>)
           })}
-          </ul>)
-        }
+        </ul>)
       }
+      else {
+      return(<div>No Messages</div>)
+      }
+    }
 
-    };
+  };
 
 
-export default MessageList
+  export default MessageList

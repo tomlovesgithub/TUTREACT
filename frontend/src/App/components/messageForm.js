@@ -21,7 +21,7 @@ class MessageForm extends React.Component {
 
   render(){
     return (
-      <div>
+      <ul>
       <form
       onSubmit={(e)=>this.handleSubmit(e)}
       ref='formRef'>
@@ -38,7 +38,7 @@ class MessageForm extends React.Component {
       Submit
       </button>
       </form>
-      </div>
+      </ul>
     );
   }
 }
