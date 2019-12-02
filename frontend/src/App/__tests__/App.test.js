@@ -3,6 +3,7 @@ import MessageApp from '../App'
 
 import mockAxios from '../../__mocks__/axios.js'
 import mockMessages from '../../__mocks__/messages.json'
+import errorMock from '../../__mocks__/Error.json'
 
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
@@ -76,14 +77,12 @@ describe('testing err', () => {
   beforeEach(function(){
     mockAxios.get.mockImplementationOnce(() =>
     Promise.reject({
-      message: 'no messages',
-      status: 404
+      error: errorMock
     })
   );
     mockAxios.post.mockImplementationOnce(() =>
     Promise.reject({
-      message: 'invalid message',
-      status: 400
+      error: errorMock
     })
   );
 });
@@ -93,27 +92,23 @@ afterEach(function(){
   mockAxios.post.mockClear()
 })
 
-it.only('Loads err on GET err', async () => {
-  var component = mount(<MessageApp />);
-  component.setState({
-    isLoaded: true,
-    error: {
-      message: 'Error Text',
-      status: 202
-    }
+it('Loads err on GET err', async () => {
+  var component = mount(<MessageApp/>);
+  await component.setState({
+    messages: mockMessages,
+    loaded: true,
+    error: errorMock
   })
-  await component.update()
-  console.log(component.html());
-  expect(component.find('#error').text()).toBe('Error: Error Text');
+  expect(component.find('#error').text()).toBe('Error: uh oh Error!');
 });
 
-it('Loads err on Post err', async () => {
-  const component = mount(<MessageApp/>);
-  component.find('textarea#message_box').simulate('change', { target: { value: 'bad string' } })
-  component.find('form').simulate('submit')
-  await component.update()
-  expect(mockAxios.post).toHaveBeenCalledTimes(1)
-  expect(component.state('error')).toBe('Error: Error Text');
-});
+// it('Loads err on Post err', async () => {
+//   const component = mount(<MessageApp/>);
+//   component.find('textarea#message_box').simulate('change', { target: { value: 'bad string' } })
+//   component.find('form').simulate('submit')
+//   await component.update();
+//   expect(mockAxios.post).toHaveBeenCalledTimes(1)
+//   expect(component.state()).toBe('Error: Error Text');
+// });
 
 });

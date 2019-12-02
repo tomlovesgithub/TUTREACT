@@ -40,10 +40,11 @@ class MessageApp extends Component {
     })
     .then((result)=>{
       this.setMessages(result.data)
+      this.setError(null)
       this.refs.messageFormRef.handleChange('')
     })
     .catch((err)=>{
-      this.setError(err.message)
+      this.setError(err.error)
     })
   }
 
@@ -53,9 +54,10 @@ class MessageApp extends Component {
       .then((result)=>{
         this.setMessages(result.data)
         this.setLoaded(true)
+        this.setError(null)
       })
       .catch((err)=>{
-        this.setError(err.data)
+        this.setError(err.error)
         this.setLoaded(true)
       })
     }
