@@ -87,7 +87,7 @@ describe("message API endpoint tests", function(){
 })
 
 
-describe("message api errors correctly", function(){
+describe("Message api errors correctly", function(){
   it("posts empty message errors", function(done) {
     data = {
       content: ""
@@ -101,7 +101,7 @@ describe("message api errors correctly", function(){
       if (err) {
         return done(err)
       }
-      expect(res.body.error).to.equal("You can't post an empty message")
+      expect(res.body).to.equal("You can't post an empty message")
       done()
     })
   })
@@ -114,7 +114,7 @@ describe("message api errors correctly", function(){
       if (err) {
         return done(err)
       }
-      expect(res.body.error).to.equal("No messages in database")
+      expect(res.body).to.equal("No messages in database")
       done()
     })
   })
@@ -127,7 +127,7 @@ describe("message api errors correctly", function(){
       if (err) {
         return done(err)
       }
-      expect(res.body.error).to.equal("Message not found in database")
+      expect(res.body).to.equal("Message not found in database")
       done()
     })
   })
@@ -145,7 +145,7 @@ describe("message api errors correctly", function(){
       if (err) {
         return done(err)
       }
-      expect(res.body.error).to.equal("Message not found in database")
+      expect(res.body).to.equal("Message not found in database")
       done()
     })
   })
@@ -163,7 +163,7 @@ describe("message api errors correctly", function(){
       if (err) {
         return done(err)
       }
-      expect(res.body.error).to.equal("Message not found in database")
+      expect(res.body).to.equal("Message not found in database")
       done()
     })
   })
