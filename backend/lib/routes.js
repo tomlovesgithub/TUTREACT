@@ -4,8 +4,12 @@ const router = Router()
 
 router.get('/', async (req, res) => {
   await messageApp.getAll()
-  .then((messages) => res.json(messages))
-  .catch((err) => res.status(404).json({ error: err }))
+  .then((messages) => {
+    res.json(messages)
+  })
+  .catch((err) => {
+    res.status(404).json({ error: err })
+  })
 })
 
 router.get('/message/:id', async (req, res) => {
