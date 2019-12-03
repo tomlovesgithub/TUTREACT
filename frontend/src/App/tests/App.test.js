@@ -80,11 +80,11 @@ describe('testing err', () => {
       error: errorMock
     })
   );
-    mockAxios.post.mockImplementationOnce(() =>
-    Promise.reject({
-      error: errorMock
-    })
-  );
+  mockAxios.post.mockImplementationOnce(() =>
+  Promise.reject({
+    error: errorMock
+  })
+);
 });
 
 afterEach(function(){
@@ -102,13 +102,13 @@ it('Loads err on GET err', async () => {
   expect(component.find('#error').text()).toBe('Error: uh oh Error!');
 });
 
-// it('Loads err on Post err', async () => {
-//   const component = mount(<MessageApp/>);
-//   component.find('textarea#message_box').simulate('change', { target: { value: 'bad string' } })
-//   component.find('form').simulate('submit')
-//   await component.update();
-//   expect(mockAxios.post).toHaveBeenCalledTimes(1)
-//   expect(component.state()).toBe('Error: Error Text');
-// });
+it('Loads err on Post err', async () => {
+  const component = mount(<MessageApp/>);
+  component.find('textarea#message_box').simulate('change', { target: { value: 'bad string' } })
+  await component.find('form').simulate('submit')
+  await component.update()
+  expect(mockAxios.post).toHaveBeenCalledTimes(1)
+  expect(component.state().error).toEqual(errorMock);
+});
 
 });
