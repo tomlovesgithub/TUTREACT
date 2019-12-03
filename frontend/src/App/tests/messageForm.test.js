@@ -1,5 +1,5 @@
 import React from 'react';
-import MessageForm from '../components/MessageForm'
+import MessageForm from '../components/messageForm'
 
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';

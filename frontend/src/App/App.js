@@ -12,7 +12,7 @@ class MessageApp extends Component {
     this.state = {
       messages: [],
       loaded: false,
-      error: null
+      error: undefined
     }
   }
 
@@ -44,7 +44,7 @@ class MessageApp extends Component {
       this.refs.messageFormRef.handleChange('')
     })
     .catch((err)=>{
-      this.setError(err.error)
+      this.setError(err.response);
     })
   }
 

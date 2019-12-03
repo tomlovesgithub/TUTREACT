@@ -3,7 +3,7 @@ import MessageApp from '../App'
 
 import mockAxios from '../../__mocks__/axios.js'
 import mockMessages from '../../__mocks__/messages.json'
-import errorMock from '../../__mocks__/Error.json'
+import errorMock from '../../__mocks__/error.json'
 
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
@@ -76,14 +76,10 @@ describe('MessageApp', () => {
 describe('testing err', () => {
   beforeEach(function(){
     mockAxios.get.mockImplementationOnce(() =>
-    Promise.reject({
-      error: errorMock
-    })
+    Promise.reject({response: errorMock})
   );
   mockAxios.post.mockImplementationOnce(() =>
-  Promise.reject({
-    error: errorMock
-  })
+  Promise.reject({response: errorMock})
 );
 });
 
@@ -92,9 +88,9 @@ afterEach(function(){
   mockAxios.post.mockClear()
 })
 
-it('Loads err on GET err', async () => {
+it('Loads err on GET err', () => {
   var component = mount(<MessageApp/>);
-  await component.setState({
+  component.setState({
     messages: mockMessages,
     loaded: true,
     error: errorMock
@@ -108,7 +104,7 @@ it('Loads err on Post err', async () => {
   await component.find('form').simulate('submit')
   await component.update()
   expect(mockAxios.post).toHaveBeenCalledTimes(1)
-  expect(component.state().error).toEqual(errorMock);
+  expect(component.state().error).toEqual("uh oh Error!");
 });
 
 });

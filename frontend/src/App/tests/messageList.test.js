@@ -1,5 +1,5 @@
 import React from 'react';
-import MessageList from '../components/MessageList'
+import MessageList from '../components/messageList'
 import mockMessages from '../../__mocks__/messages.json'
 
 import Enzyme from 'enzyme';

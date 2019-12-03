@@ -1,6 +1,6 @@
 import React from 'react'
-import ErrorHandler from '../components/ErrorHandler'
-import errorMock from '../../__mocks__/Error.json'
+import ErrorHandler from '../components/errorHandler'
+import errorMock from '../../__mocks__/error.json'
 
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
@@ -21,10 +21,10 @@ describe('Error', () => {
   });
 
   it('displays with error', async () => {
-    const component = mount(<ErrorHandler
+    const component = await mount(<ErrorHandler
       error={errorMock}
       />);
-      await component.update()
+    await component.update()
     expect(component.find('#error').text()).toBe("Error: uh oh Error!");
   });
 
