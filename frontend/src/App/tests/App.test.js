@@ -66,9 +66,8 @@ describe('MessageApp', () => {
     expect(component.find('ul#message_list').children().length).toBe(5);
   });
 
-  it( 'clears message box on submit and updates list', async () => {
+  it('clears message box on submit and updates list', async () => {
     const component = await mount(<MessageApp/>);
-    component.find('textarea#message_box').simulate('change', { target: { value: 'sixth message' } })
     await component.find('form').simulate('submit')
     await component.update()
     expect(mockAxios.post).toHaveBeenCalledTimes(1);
@@ -79,18 +78,19 @@ describe('MessageApp', () => {
   it('removes message on delete', async () => {
     const component = await mount(<MessageApp/>);
     await component.update()
-    component.find('ul#message_list').childAt(0).find('#delete').simulate('click');
+    await component.find('ul#message_list').childAt(0).find('#delete').simulate('click');
+    await component.update()
     expect(mockAxios.delete).toHaveBeenCalledTimes(1);
-    expect(component.find('textarea').text()).toEqual('');
+    expect(component.find('ul#message_list').children().length).toBe(4);
   });
 
-  it('removes message on delete', async () => {
-    const component = await mount(<MessageApp/>);
-    await component.update()
-    component.find('ul#message_list').childAt(0).find('#delete').simulate('click');
-    expect(mockAxios.delete).toHaveBeenCalledTimes(1);
-    expect(component.find('textarea').text()).toEqual('');
-  });
+  // it('updates message on update', async () => {
+  //   const component = await mount(<MessageApp/>);
+  //   await component.update()
+  //   component.find('ul#message_list').childAt(0).find('#delete').simulate('click');
+  //   expect(mockAxios.delete).toHaveBeenCalledTimes(1);
+  //   expect(component.find('textarea').text()).toEqual('');
+  // });
 
 });
 
@@ -113,23 +113,21 @@ describe('testing err', () => {
     mockAxios.post.mockClear()
   })
 
-  it('Loads err on GET err', () => {
-    var component = mount(<MessageApp/>);
-    component.setState({
-      messages: mockMessages,
-      loaded: true,
-      error: errorMock
-    })
+  it('loads err on GET err', async () => {
+    var component = await mount(<MessageApp/>);
+    await component.update()
+    expect(component.state().error).toEqual({data:"uh oh Error!"});
     expect(component.find('#error').text()).toBe('Error: uh oh Error!');
   });
 
-  it('Loads err on Post err', async () => {
+  it('loads err on Post err', async () => {
     const component = mount(<MessageApp/>);
     component.find('textarea#message_box').simulate('change', { target: { value: 'bad string' } })
     await component.find('form').simulate('submit')
     await component.update()
     expect(mockAxios.post).toHaveBeenCalledTimes(1)
-    expect(component.state().error).toEqual("uh oh Error!");
+    expect(component.state().error).toEqual({data:"uh oh Error!"});
+    expect(component.find('#error').text()).toBe('Error: uh oh Error!');
   });
 
 });

@@ -24,7 +24,7 @@ describe('List', () => {
   });
 
   it('each message has delete button', () => {
-    const component = shallow(<MessageList
+    const component = mount(<MessageList
       messages={mockMessages}
       loaded={true}
     />)
@@ -32,7 +32,7 @@ describe('List', () => {
   });
 
   it('each message has update button', () => {
-    const component = shallow(<MessageList
+    const component = mount(<MessageList
       messages={mockMessages}
       loaded={true}
     />)
@@ -40,13 +40,12 @@ describe('List', () => {
   });
 
   it('update click triggers edit mode', () => {
-    const component = shallow(<MessageList
+    const component = mount(<MessageList
       messages={mockMessages}
       loaded={true}
     />)
     component.find('ul#message_list').childAt(0).find('#update').simulate('click')
     expect(component.find('ul#message_list').childAt(0).find('#edit').text()).toBe('edit')
   });
-
 
 });

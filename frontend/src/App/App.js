@@ -20,10 +20,6 @@ class MessageApp extends Component {
     this.getAllMessages()
   }
 
-  componentDidUpdate(){
-    // console.log(this.state);
-  }
-
   setError(error){
     this.setState({
       error: error
@@ -65,10 +61,38 @@ class MessageApp extends Component {
         this.setError(null)
       })
       .catch((err)=>{
-        this.setError(err.error)
+        this.setError(err.response)
         this.setLoaded(true)
       })
     }
+  }
+
+  deleteMessage = (id) => {
+    axios.delete(`${PORT}/delete/${id}`, {
+      id: id
+    })
+    .then((result)=>{
+      this.setMessages(result.data)
+      this.setError(null)
+      this.refs.messageFormRef.refs.inputRef.setState({value:""})
+    })
+    .catch((err)=>{
+      this.setError(err.response);
+    })
+  }
+
+  updateMessage = (id, content) => {
+    axios.delete(`${PORT}/delete/${id}`, {
+      content: content
+    })
+    .then((result)=>{
+      this.setMessages(result.data)
+      this.setError(null)
+      this.refs.messageFormRef.handleChange('')
+    })
+    .catch((err)=>{
+      this.setError(err.response.data);
+    })
   }
 
   render(){
@@ -84,6 +108,7 @@ class MessageApp extends Component {
       <MessageList
       loaded={this.state.loaded}
       messages={this.state.messages}
+      handleDelete={this.deleteMessage}
       />
       </div>
     );
