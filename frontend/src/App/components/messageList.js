@@ -17,6 +17,7 @@ class MessageList extends Component {
             {message.content}
             <br/>
             {message.date}
+            <button id='delete'>delete</button>
             </li>)
           })}
         </ul>)

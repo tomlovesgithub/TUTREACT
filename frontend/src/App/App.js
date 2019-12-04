@@ -16,6 +16,14 @@ class MessageApp extends Component {
     }
   }
 
+  componentDidMount(){
+    this.getAllMessages()
+  }
+
+  componentDidUpdate(){
+    // console.log(this.state);
+  }
+
   setError(error){
     this.setState({
       error: error
@@ -48,7 +56,7 @@ class MessageApp extends Component {
     })
   }
 
-  getAllMessages(){
+  getAllMessages = () => {
     if (!this.state.loaded) {
       axios.get(`${PORT}/`)
       .then((result)=>{
@@ -64,9 +72,8 @@ class MessageApp extends Component {
   }
 
   render(){
-    this.getAllMessages()
     return (
-      <ul className="App">
+      <div className="App">
       <MessageForm
       ref='messageFormRef'
       submitMessage={this.submitMessage}
@@ -78,7 +85,7 @@ class MessageApp extends Component {
       loaded={this.state.loaded}
       messages={this.state.messages}
       />
-      </ul>
+      </div>
     );
   }
 }

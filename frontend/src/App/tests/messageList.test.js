@@ -16,11 +16,19 @@ describe('List', () => {
   });
 
   it('takes messages as props and displays them', () => {
-  const component = shallow(<MessageList
-    messages={mockMessages}
-    loaded={true}
-    />);
-    expect(component.find('ul#message_list').children().length).toBe(5);
-});
+    const component = shallow(<MessageList
+      messages={mockMessages}
+      loaded={true}
+      />)
+      expect(component.find('ul#message_list').children().length).toBe(5)
+    });
 
-});
+    it('each message has delete button', () => {
+      const component = shallow(<MessageList
+        messages={mockMessages}
+        loaded={true}
+        />);
+        expect(component.find('ul#message_list').childAt(0).find('#delete').text()).toBe('delete');
+      });
+
+    });

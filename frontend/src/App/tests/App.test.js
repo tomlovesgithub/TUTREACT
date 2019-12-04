@@ -19,9 +19,14 @@ describe('MessageApp', () => {
     }))
 
     mockAxios.get.mockImplementation(() =>
-    Promise.resolve({
-      data: []
-    }));
+      Promise.resolve({
+        data: mockMessages
+      }))
+
+      mockAxios.delete.mockImplementation(() =>
+        Promise.resolve({
+          data: mockMessages
+        }))
 
   })
 
@@ -68,6 +73,14 @@ describe('MessageApp', () => {
     component.find('textarea#message_box').simulate('change', { target: { value: 'Hello' } })
     component.find('form').simulate('submit')
     await component.update()
+    expect(component.find('textarea').text()).toEqual('');
+  });
+
+  it('removes message on delete', async () => {
+    const component = await mount(<MessageApp/>);
+    await component.update()
+    component.find('ul#message_list').childAt(0).find('#delete').simulate('click');
+    expect(mockAxios.delete).toHaveBeenCalledTimes(1);
     expect(component.find('textarea').text()).toEqual('');
   });
 
