@@ -8,7 +8,7 @@ class MessageForm extends React.Component {
     }
   }
 
-  handleChange(change){
+  handleChange = (change) => {
     this.setState({
       currentMessage: change
     })
@@ -22,22 +22,22 @@ class MessageForm extends React.Component {
   render(){
     return (
       <ul>
-      <form
-      onSubmit={(e)=>this.handleSubmit(e)}
-      ref='formRef'>
-      <textarea
-      onChange={(e) => this.handleChange(e.target.value)}
-      value={this.state.currentMessage}
-      id='message_box'>
-      </textarea>
-      <br/>
-      <button
-      type="submit"
-      name="Submit"
-      id="submit">
-      Submit
-      </button>
-      </form>
+        <form
+          onSubmit={(e)=>this.handleSubmit(e)}
+          ref='formRef'>
+          <textarea
+            onChange={(e) => this.handleChange(e.target.value)}
+            value={this.state.currentMessage}
+            id='message_box'>
+          </textarea>
+          <br/>
+          <button
+            type="submit"
+            name="Submit"
+            id="submit">
+            Submit
+          </button>
+        </form>
       </ul>
     );
   }

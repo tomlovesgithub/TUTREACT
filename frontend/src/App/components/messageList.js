@@ -9,21 +9,19 @@ class MessageList extends Component {
     if (messages.length > 0){
       return(
         <ul id='message_list'>
-        {messages.map(message=>{
-          return (
-            <li
-            style={{border: "1px solid black", width: 'fit-content'}}
-            key={message.id}>
-            {message.content}
-            <br/>
-            {message.date}
-            <button id='delete'>delete</button>
+          {messages.map(message=>{
+            return (<li
+              style={{border: "1px solid black", width: 'fit-content'}}
+              key={message.id}>
+              {message.content}
+              <br/>
+              {message.date}
+              <button id='delete'>delete</button>
             </li>)
           })}
         </ul>)
-      }
-      else {
-      return(<div>No Messages</div>)
+      } else {
+        return(<div>No Messages</div>)
       }
     }
 
