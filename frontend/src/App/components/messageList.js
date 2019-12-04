@@ -12,6 +12,11 @@ class MessageList extends Component {
     }
   }
 
+  sendUpdate(id, content){
+    this.props.sendUpdate(id, content)
+    this.editModeOn({id:null,content:null})
+  }
+
   editModeOn(message){
     this.setState({
       editMode: {
@@ -20,7 +25,6 @@ class MessageList extends Component {
       }
     })
   }
-
 
   render(){
     let {loaded, messages} = this.props
@@ -33,13 +37,17 @@ class MessageList extends Component {
           {messages.map(message=>{
 
             let contentBox = message.content
-            let updateButton = (<button id="update" onClick={()=>this.editModeOn(message)}>update</button>)
+            let updateButton = (<button
+              id="update"
+              onClick={()=>this.editModeOn(message)}>
+              update
+            </button>)
 
             if (this.state.editMode.id === message.id){
               contentBox = (<TextInput value={this.state.editMode.content}/>)
               updateButton = (<button
                 id='edit'
-                onClick={()=>this.props.sendUpdate(this.state.editMode.content)}>
+                onClick={()=>this.sendUpdate(this.state.editMode.id, this.state.editMode.content)}>
                 edit
               </button>)
             };

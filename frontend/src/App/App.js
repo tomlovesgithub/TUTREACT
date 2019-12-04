@@ -82,7 +82,7 @@ class MessageApp extends Component {
   }
 
   updateMessage = (id, content) => {
-    axios.delete(`${PORT}/delete/${id}`, {
+    axios.put(`${PORT}/update/${id}`, {
       content: content
     })
     .then((result)=>{
@@ -91,7 +91,7 @@ class MessageApp extends Component {
       this.refs.messageFormRef.handleChange('')
     })
     .catch((err)=>{
-      this.setError(err.response.data);
+      this.setError(err.response);
     })
   }
 
@@ -109,6 +109,7 @@ class MessageApp extends Component {
       loaded={this.state.loaded}
       messages={this.state.messages}
       handleDelete={this.deleteMessage}
+      sendUpdate={this.updateMessage}
       />
       </div>
     );

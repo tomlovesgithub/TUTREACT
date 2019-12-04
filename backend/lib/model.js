@@ -56,18 +56,14 @@ class MessageApp {
   }
 
   readFromJson(){
-    var result = JSON.parse(fs.readFileSync(__dirname+path.normalize(this.filepath), "utf8", (err, data) => {
-      if (err) throw err;
-    }))
+    var result = JSON.parse(fs.readFileSync(__dirname+path.normalize(this.filepath), "utf8", (err, data) => {}))
     return result
   }
 
   writeToJson(){
     if (this.filepath) {
       const jsonItem = JSON.stringify(this.messages)
-      fs.writeFileSync(__dirname+path.normalize(this.filepath), jsonItem, (err) => {
-        if (err) throw err;
-      });
+      fs.writeFileSync(__dirname+path.normalize(this.filepath), jsonItem, (err) => {});
     }
   }
 }
