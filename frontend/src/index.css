@@ -1,16 +1,63 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+*{
+  text-align: center;
+  font-family: OCRAbyBT-Regular;
+  user-select: none;
+  outline: none;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+#message_form{
+  font-size: 12px;
+  color: #000000;
+  text-align: center;
+  background: #D8D8D8;
+  border: 1px solid #979797;
+  border-radius: 5px;
 }
+
+#message_box{
+  resize: none;
+  width: 97.5%;
+  height: 100%;
+  margin: 1%;
+  background: #D8D8D8;
+  border: 1px solid #979797;
+  border-radius: 5px;
+}
+
+button{
+  background: #D8D8D8;
+  border: 1px solid #979797;
+  border-radius: 12px;
+  width: 45%;
+}
+
+button:hover{
+  filter: invert(1);
+}
+
+#indv_message{
+  list-style: none;
+  background: #D8D8D8;
+  border: 1px solid #979797;
+  border-radius: 5px;
+  font-family: OCRAbyBT-Regular;
+  font-size: 12px;
+  color: #000000;
+  text-align: center;
+  width: 100%;
+  transition: 0.1s all;
+}
+
+#indv_message:hover{
+  transform: scale3d(1, 1.01, 1.01);
+  transition: 0.1s all;
+}
+
+#message_list{
+  width: 100%;
+  padding: 0;
+}
+
 #error{
-  color: red;
+  background-color: red;
 }

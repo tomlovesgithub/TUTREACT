@@ -12,8 +12,8 @@ class MessageList extends Component {
     }
   }
 
-  sendUpdate(id, content){
-    this.props.sendUpdate(id, content)
+  sendUpdate(){
+    this.props.sendUpdate(this.state.editMode.id, this.refs.updateBox.state.value)
     this.editModeOn({id:null,content:null})
   }
 
@@ -35,7 +35,6 @@ class MessageList extends Component {
       return(
         <ul id='message_list'>
           {messages.map(message=>{
-
             let contentBox = message.content
             let updateButton = (<button
               id="update"
@@ -44,20 +43,24 @@ class MessageList extends Component {
             </button>)
 
             if (this.state.editMode.id === message.id){
-              contentBox = (<TextInput value={this.state.editMode.content}/>)
+              contentBox = (<TextInput
+                ref='updateBox'
+                value={this.state.editMode.content}/>)
               updateButton = (<button
                 id='edit'
-                onClick={()=>this.sendUpdate(this.state.editMode.id, this.state.editMode.content)}>
+                onClick={()=>this.sendUpdate()}>
                 edit
               </button>)
             };
 
             return (<li
-              style={{border: "1px solid black", width: 'fit-content'}}
+              id='indv_message'
               key={message.id}>
               {contentBox}
               <br/>
-              {message.date}
+              {new Date(message.date).toLocaleTimeString('en-UK')}
+              <br/>
+              {new Date(message.date).toLocaleDateString('en-UK')}
               <br/>
 
               <button

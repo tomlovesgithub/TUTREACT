@@ -32,6 +32,11 @@ class MessageApp extends Component {
     })
   }
 
+  handleSuccess(messages){
+    this.setMessages(messages)
+    this.setError(null)
+  }
+
   setLoaded(loaded){
     this.setState({
       loaded: loaded
@@ -43,8 +48,7 @@ class MessageApp extends Component {
       content: data
     })
     .then((result)=>{
-      this.setMessages(result.data)
-      this.setError(null)
+      this.handleSuccess(result.data);
       this.refs.messageFormRef.handleChange('')
     })
     .catch((err)=>{
@@ -56,9 +60,8 @@ class MessageApp extends Component {
     if (!this.state.loaded) {
       axios.get(`${PORT}/`)
       .then((result)=>{
-        this.setMessages(result.data)
+        this.handleSuccess(result.data);
         this.setLoaded(true)
-        this.setError(null)
       })
       .catch((err)=>{
         this.setError(err.response)
@@ -72,9 +75,7 @@ class MessageApp extends Component {
       id: id
     })
     .then((result)=>{
-      this.setMessages(result.data)
-      this.setError(null)
-      this.refs.messageFormRef.refs.inputRef.setState({value:""})
+      this.handleSuccess(result.data);
     })
     .catch((err)=>{
       this.setError(err.response);
@@ -86,9 +87,7 @@ class MessageApp extends Component {
       content: content
     })
     .then((result)=>{
-      this.setMessages(result.data)
-      this.setError(null)
-      this.refs.messageFormRef.handleChange('')
+      this.handleSuccess(result.data)
     })
     .catch((err)=>{
       this.setError(err.response);
@@ -98,12 +97,12 @@ class MessageApp extends Component {
   render(){
     return (
       <div className="App">
+      <ErrorHandler
+      error={this.state.error}
+      />
       <MessageForm
       ref='messageFormRef'
       submitMessage={this.submitMessage}
-      />
-      <ErrorHandler
-      error={this.state.error}
       />
       <MessageList
       loaded={this.state.loaded}

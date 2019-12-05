@@ -7,6 +7,7 @@ class TextInput extends React.Component {
       value: this.props.value || ""
     }
   }
+
   render(){
     return (
         <textarea
