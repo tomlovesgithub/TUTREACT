@@ -14,6 +14,17 @@ describe('Form', () => {
     expect(component).toMatchSnapshot();
   });
 
+  it('has textbox', () => {
+    const component = mount(<MessageForm/>);
+    expect(component.exists('textarea#message_box')).toBe(true);
+  });
+
+  it('has submit button', () => {
+    const component = mount(<MessageForm/>);
+    expect(component.exists('button#submit')).toBe(true);
+  });
+
+
   it('should update state message when text entered', () => {
   const component = shallow(<MessageForm/>);
   component.find('textarea#message_box').simulate('change', { target: { value: 'Hello' } })

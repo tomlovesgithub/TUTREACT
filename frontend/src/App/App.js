@@ -11,21 +11,12 @@ class MessageApp extends Component {
     super()
     this.state = {
       messages: [],
-      loaded: false,
       error: undefined
     }
   }
 
-  submitMessage = (data) => {
-    axios.post(`${PORT}/message`, {
-      content: data
-    })
-    .then((result)=>{
-      this.setMessages(result.data)
-    })
-    .catch((err)=>{
-      this.setError(err.response)
-    })
+  componentDidMount(){
+    this.getAllMessages()
   }
 
   setError(error){
@@ -46,22 +37,42 @@ class MessageApp extends Component {
     })
   }
 
-  getAllMessages(){
-    if (!this.state.loaded) {
+  getAllMessages=()=>{
       axios.get(`${PORT}/`)
       .then((result)=>{
         this.setMessages(result.data)
-        this.setLoaded(true)
+
       })
       .catch((err)=>{
-        this.setError(err.response)
-        this.setLoaded(true)
+        this.setError(err)
       })
-    }
   }
 
+  submitMessage = (data) => {
+    axios.post(`${PORT}/message`, {
+      content: data
+    })
+    .then((result)=>{
+      this.setMessages(result.data)
+    })
+    .catch((err)=>{
+      this.setError(err.response)
+    })
+  }
+
+  deleteMessage = (id) => {
+  axios.delete(`${PORT}/delete/${id}`, {
+    id: id
+  })
+  .then((result)=>{
+    this.setMessages(result.data)
+  })
+  .catch((err)=>{
+    this.setError(err.response);
+  })
+}
+
   render(){
-    this.getAllMessages()
     return (
       <div className="App">
       <ErrorHandler
@@ -72,8 +83,8 @@ class MessageApp extends Component {
       submitMessage={this.submitMessage}
       />
       <MessageList
-      loaded={this.state.loaded}
       messages={this.state.messages}
+      handleDelete={this.deleteMessage}
       />
       </div>
     );

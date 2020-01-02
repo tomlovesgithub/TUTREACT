@@ -2,27 +2,28 @@ import React, {Component} from 'react';
 
 class MessageList extends Component {
   render(){
-    let {loaded, messages} = this.props
-    if (!loaded) {
-      return(<ul id='message_list'>loading...</ul>)
-    }
-    else {
+      if (this.props.messages){
       return(
         <ul id='message_list'>
-        {messages.map(message=>{
+        {this.props.messages.map(message=>{
           return <li
+          id='message'
           style={{border: "1px solid black"}}
           key={message.id}>
             {message.content}
             <br/>
             {message.date}
+            <br/>
+            <button
+            id='delete'
+            onClick={()=>this.props.handleDelete(message.id)}>
+            >delete</button>
             </li>
           })}
           </ul>)
-        }
+        } else {
+          return (<div>no messages</div>)
+       }
       }
-
-    };
-
-
+};
 export default MessageList
