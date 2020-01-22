@@ -24,8 +24,8 @@ class MessageForm extends React.Component {
     return (
       <div>
         <form
-          onSubmit={(e)=>this.handleSubmit(e)}
-          ref='formRef'>
+          ref='formRef'
+          onSubmit={(e)=>this.handleSubmit(e)}>
           <textarea
             onChange={(e) => this.handleChange(e.target.value)}
             value={this.state.currentMessage}
