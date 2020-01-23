@@ -1,6 +1,6 @@
 import React from 'react';
-import MessageList from '../components/messageList'
-import mockMessages from '../../__mocks__/messages.json'
+import MessageList from '../App/components/messageList'
+import mockMessages from '../__mocks__/messages.json'
 
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';

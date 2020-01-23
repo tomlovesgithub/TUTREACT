@@ -1,6 +1,6 @@
 import React from 'react'
-import ErrorHandler from '../components/errorHandler'
-import errorMock from '../../__mocks__/error.json'
+import ErrorHandler from '../App/components/errorHandler'
+import errorMock from '../__mocks__/error.json'
 
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';

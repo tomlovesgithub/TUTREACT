@@ -1,13 +1,13 @@
 import React from 'react';
-import MessageApp from '../App'
+import MessageApp from '../App/App.js'
 
-import mockAxios from '../../__mocks__/axios.js'
+import mockAxios from '../__mocks__/axios.js'
 // import mockMessage from '../../__mocks__/message.json'
-import mockMessages from '../../__mocks__/messages.json'
-import mockMessagesAdded from '../../__mocks__/messagesAdd.json'
-import mockMessagesDeleted from '../../__mocks__/messagesDel.json'
+import mockMessages from '../__mocks__/messages.json'
+import mockMessagesAdded from '../__mocks__/messagesAdd.json'
+import mockMessagesDeleted from '../__mocks__/messagesDel.json'
 
-import errorMock from '../../__mocks__/error.json'
+import errorMock from '../__mocks__/error.json'
 
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
@@ -135,9 +135,10 @@ describe('testing err', () => {
     mockAxios.put.mockClear()
   })
 
-  it('loads err on GET err', async () => {
-    var component = await mount(<MessageApp/>);
+  it.only('loads err on GET err', async () => {
+    const component = await mount(<MessageApp/>);
     await component.update()
+    console.log(component.state());
     expect(component.state().error).toEqual({data:"uh oh Error!"});
     expect(component.find('#error').text()).toBe('Error: uh oh Error!');
   });

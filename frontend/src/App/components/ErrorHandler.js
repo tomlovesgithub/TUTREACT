@@ -10,5 +10,4 @@ class ErrorHandler extends Component {
   }
 };
 
-
 export default ErrorHandler

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import MessageList from './components/messageList.js'
-import ErrorHandler from './components/errorHandler.js'
 import MessageForm from './components/messageForm.js'
+import ErrorHandler from './components/errorHandler.js'
 
 import axios from 'axios';
 const PORT = 'http://localhost:3001';
@@ -32,28 +32,15 @@ class MessageApp extends Component {
     })
   }
 
-  handleSuccess(messages){
-    this.setMessages(messages)
-    this.setError(null)
-  }
-
   setLoaded(loaded){
     this.setState({
       loaded: loaded
     })
   }
 
-  submitMessage = (data) => {
-    axios.post(`${PORT}/message`, {
-      content: data
-    })
-    .then((result)=>{
-      this.handleSuccess(result.data);
-      this.refs.messageFormRef.handleChange('')
-    })
-    .catch((err)=>{
-      this.setError(err.response);
-    })
+  handleSuccess(messages){
+    this.setMessages(messages)
+    this.setError(null)
   }
 
   getAllMessages = () => {
@@ -69,6 +56,20 @@ class MessageApp extends Component {
       })
     }
   }
+
+  submitMessage = (data) => {
+    axios.post(`${PORT}/message`, {
+      content: data
+    })
+    .then((result)=>{
+      this.handleSuccess(result.data);
+      this.refs.messageFormRef.handleChange('')
+    })
+    .catch((err)=>{
+      this.setError(err.response);
+    })
+  }
+
 
   deleteMessage = (id) => {
     axios.delete(`${PORT}/delete/${id}`, {
