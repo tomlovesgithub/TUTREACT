@@ -36,15 +36,16 @@ describe('List', () => {
         const component = shallow(<MessageList
           messages={mockMessages}
           />)
-          expect(component.find('ul#message_list').childAt(0).find('#update').text()).toBe('update')
-        });
+          expect(component.find('ul#message_list').childAt(0).find('button#update').text()).toBe('update')
+      });
 
-        // it('clicking update toggles editMode ', () => {
-        //   const component = shallow(<MessageList
-        //     messages={mockMessages}
-        //     loaded={true}
-        //     />)
-        //     expect(component.state('editMode')).toEqual(1);
-        //   });
+      // it('update click triggers edit mode', () => {
+      //     const component = mount(<MessageList
+      //     messages={mockMessages}
+      //     loaded={true}
+      //   />)
+      //   component.find('ul#message_list').childAt(0).find('#update').simulate('click')
+      //   expect(component.find('ul#message_list').childAt(0).find('#edit').text()).toBe('edit')
+      // });
 
 });

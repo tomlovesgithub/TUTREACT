@@ -1,45 +1,32 @@
 import React from 'react';
+import TextInput from './textInput.js'
 
 class MessageForm extends React.Component {
-  constructor(){
-    super()
-    this.state = {
-      currentMessage: ''
-    }
-  }
-
-  handleChange(change){
-    this.setState({
-      currentMessage: change
-    })
-  }
 
   handleSubmit = (e) => {
     e.preventDefault()
-    this.props.submitMessage(this.state.currentMessage)
-    this.handleChange('')
+    this.props.submitMessage(this.refs.inputRef.state.value)
+    this.refs.inputRef.setState({value: ""})
   };
 
   render(){
     return (
-      <div>
-        <form
-          ref='formRef'
-          onSubmit={(e)=>this.handleSubmit(e)}>
-          <textarea
-            onChange={(e) => this.handleChange(e.target.value)}
-            value={this.state.currentMessage}
-            id='message_box'>
-          </textarea>
-          <br/>
-          <button
-            type="submit"
-            name="Submit"
-            id="submit">
-            Submit
-          </button>
-        </form>
-      </div>
+      <form
+        id="message_form"
+        onSubmit={(e)=>this.handleSubmit(e)}
+        ref='formRef'>
+        <TextInput
+          ref="inputRef"
+          id="message_box"
+        />
+        <br/>
+        <button
+          type="submit"
+          name="Submit"
+          id="submit">
+          Submit
+        </button>
+      </form>
     );
   }
 }

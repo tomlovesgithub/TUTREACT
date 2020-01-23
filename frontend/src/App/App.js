@@ -31,17 +31,16 @@ class MessageApp extends Component {
     })
   }
 
-  setLoaded(loaded){
-    this.setState({
-      loaded: loaded
-    })
-  }
+  // setLoaded(loaded){
+  //   this.setState({
+  //     loaded: loaded
+  //   })
+  // }
 
   getAllMessages=()=>{
       axios.get(`${PORT}/`)
       .then((result)=>{
         this.setMessages(result.data)
-
       })
       .catch((err)=>{
         this.setError(err)
@@ -56,7 +55,7 @@ class MessageApp extends Component {
       this.setMessages(result.data)
     })
     .catch((err)=>{
-      this.setError(err.response)
+      this.setError(err)
     })
   }
 
@@ -68,7 +67,7 @@ class MessageApp extends Component {
     this.setMessages(result.data)
   })
   .catch((err)=>{
-    this.setError(err.response);
+    this.setError(err);
   })
 }
 
