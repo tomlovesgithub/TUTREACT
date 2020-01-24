@@ -1,12 +1,17 @@
 import React from 'react';
-import TextInput from './textInput.js'
 
 class MessageForm extends React.Component {
+  constructor(){
+    super()
+    this.state = {
+      value: ''
+    }
+  }
 
   handleSubmit = (e) => {
     e.preventDefault()
-    this.props.submitMessage(this.refs.inputRef.state.value)
-    this.refs.inputRef.setState({value: ""})
+    this.props.submitMessage(this.state.value)
+    this.setState({value: ""})
   };
 
   render(){
@@ -15,10 +20,13 @@ class MessageForm extends React.Component {
         id="message_form"
         onSubmit={(e)=>this.handleSubmit(e)}
         ref='formRef'>
-        <TextInput
-          ref="inputRef"
-          id="message_box"
-        />
+        <textarea
+        ref='inputRef'
+        onChange={(e) => this.setState({value: e.target.value})}
+        value={this.state.value}
+        id='message_box'
+        >
+        </textarea>
         <br/>
         <button
           type="submit"

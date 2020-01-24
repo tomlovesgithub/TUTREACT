@@ -31,20 +31,26 @@ class MessageApp extends Component {
     })
   }
 
-  // setLoaded(loaded){
-  //   this.setState({
-  //     loaded: loaded
-  //   })
-  // }
+  sendUpdate = (id, content) => {
+    axios.put(`${PORT}/update/${id}`, {
+      content: content
+    })
+    .then((result)=>{
+      this.handleSuccess(result.data)
+    })
+    .catch((err)=>{
+      this.setError(err);
+    })
+  }
 
   getAllMessages=()=>{
-      axios.get(`${PORT}/`)
-      .then((result)=>{
-        this.setMessages(result.data)
-      })
-      .catch((err)=>{
-        this.setError(err)
-      })
+    axios.get(`${PORT}/`)
+    .then((result)=>{
+      this.setMessages(result.data)
+    })
+    .catch((err)=>{
+      this.setError(err)
+    })
   }
 
   submitMessage = (data) => {
@@ -60,16 +66,16 @@ class MessageApp extends Component {
   }
 
   deleteMessage = (id) => {
-  axios.delete(`${PORT}/delete/${id}`, {
-    id: id
-  })
-  .then((result)=>{
-    this.setMessages(result.data)
-  })
-  .catch((err)=>{
-    this.setError(err);
-  })
-}
+    axios.delete(`${PORT}/delete/${id}`, {
+      id: id
+    })
+    .then((result)=>{
+      this.setMessages(result.data)
+    })
+    .catch((err)=>{
+      this.setError(err);
+    })
+  }
 
   render(){
     return (
@@ -84,6 +90,7 @@ class MessageApp extends Component {
       <MessageList
       messages={this.state.messages}
       handleDelete={this.deleteMessage}
+      sendUpdate={this.sendUpdate}
       />
       </div>
     );

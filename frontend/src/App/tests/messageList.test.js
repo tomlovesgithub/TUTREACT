@@ -39,13 +39,18 @@ describe('List', () => {
           expect(component.find('ul#message_list').childAt(0).find('button#update').text()).toBe('update')
       });
 
-      // it('update click triggers edit mode', () => {
-      //     const component = mount(<MessageList
-      //     messages={mockMessages}
-      //     loaded={true}
-      //   />)
-      //   component.find('ul#message_list').childAt(0).find('#update').simulate('click')
-      //   expect(component.find('ul#message_list').childAt(0).find('#edit').text()).toBe('edit')
-      // });
+
+      it('update click triggers edit mode', () => {
+          const component = mount(<MessageList
+          messages={mockMessages}
+          sendUpdate={function(item){return true}}
+          loaded={true}
+        />)
+        component.find('ul#message_list').childAt(0).find('#update').simulate('click')
+        expect(component.find('ul#message_list').childAt(0).find('#updateBox').text()).toBe('Hello')
+        expect(component.find('ul#message_list').childAt(0).find('#edit').text()).toBe('Send Update')
+        component.find('ul#message_list').childAt(0).find('#edit').simulate('click')
+        expect(component.find('ul#message_list').childAt(0).find('button#update').text()).toBe('update')
+      });
 
 });
