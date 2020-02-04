@@ -55,7 +55,9 @@ class MessageList extends Component {
       key={message.id}>
       {content}
       <br/>
-      {message.date}
+      {new Date(message.date).toLocaleTimeString('en-UK')}
+      <br/>
+      {new Date(message.date).toLocaleDateString('en-UK')}
       <br/>
       <button
       id='delete'
